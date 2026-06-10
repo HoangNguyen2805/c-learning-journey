@@ -268,3 +268,227 @@ gcc compiles.
 printf prints.
 scanf reads.
 ```
+
+## Mini lesson: char array / string input
+
+In C, there is no simple `string` data type like some other languages.
+
+Instead, C uses a **char array** to store text.
+
+```c
+char name[50];
+```
+
+Meaning:
+
+```text
+Create a box named name that can hold text.
+The box has space for 50 characters.
+```
+
+## char vs char[]
+
+`char` stores one character:
+
+```c
+char grade = 'A';
+```
+
+`char[]` stores text / many characters:
+
+```c
+char name[50];
+```
+
+Simple memory rule:
+
+```text
+char = one character
+char[] = many characters / text
+```
+
+## Why do we write [50]?
+
+```c
+char name[50];
+```
+
+The `50` means C reserves 50 spaces in memory.
+
+Example:
+
+```text
+Hoang
+```
+
+This needs 6 spaces in memory:
+
+```text
+H o a n g \0
+```
+
+The last one is hidden.
+
+## What is \0?
+
+C strings end with a hidden character called:
+
+```text
+\0
+```
+
+It means:
+
+```text
+end of string
+```
+
+So when we store:
+
+```text
+Hoang
+```
+
+C really stores:
+
+```text
+H o a n g \0
+```
+
+That is why `char name[50]` can store up to 49 visible characters.
+
+The last space is saved for `\0`.
+
+## scanf with char[]
+
+To read a word into a char array:
+
+```c
+char name[50];
+
+printf("Enter your name: ");
+scanf("%s", name);
+```
+
+Important:
+
+```text
+char[] usually does not use &
+```
+
+So this is correct:
+
+```c
+scanf("%s", name);
+```
+
+This is not what we use right now:
+
+```c
+scanf("%s", &name);
+```
+
+## Why no & for char[]?
+
+For normal variables, we use `&` because `scanf` needs the address.
+
+Example:
+
+```c
+int age;
+scanf("%d", &age);
+```
+
+But with an array:
+
+```c
+char name[50];
+```
+
+The name of the array already acts like the address of the first character.
+
+So:
+
+```c
+scanf("%s", name);
+```
+
+means:
+
+```text
+Put the text starting at the first spot in the name array.
+```
+
+Simple rule for now:
+
+```text
+int uses &
+float uses &
+double uses &
+char uses &
+char[] does not use &
+```
+
+## scanf("%s") only reads one word
+
+This works:
+
+```text
+Hoang
+```
+
+But this:
+
+```text
+Hoang Nguyen
+```
+
+will only store:
+
+```text
+Hoang
+```
+
+Because `scanf("%s", name)` stops when it sees a space.
+
+We will learn how to read full names with spaces later using:
+
+```c
+fgets()
+```
+
+## Example program
+
+```c
+#include <stdio.h>
+
+int main() {
+    char name[50];
+
+    printf("Enter your name: ");
+    scanf("%s", name);
+
+    printf("Your name is %s.\n", name);
+
+    return 0;
+}
+```
+
+Example output:
+
+```text
+Enter your name: Hoang
+Your name is Hoang.
+```
+
+## What I need to remember
+
+```text
+char = one character
+char[] = text / string
+char name[50] = text box with 50 spaces
+C string ends with hidden \0
+scanf("%s", name) reads one word
+char[] does not use &
+scanf("%s") stops at space
+```
