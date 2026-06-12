@@ -86,7 +86,7 @@ double = bigger decimal number, more precise
 float  = about 6 to 7 digits total
 double = about 15 to 16 digits total
 
-float x = 3.141592653589793;
+float x = 3.1415926;
 double y = 3.141592653589793;
 
 In C, division uses `/`.
@@ -293,6 +293,8 @@ x = 10;   // assign 10 into x
 x == 10;  // check if x equals 10
 ```
 
+
+<>
 ## Assignment shortcut operators
 
 These are shortcuts to update a variable.
@@ -403,7 +405,7 @@ Result:
 ```text
 x = 1
 ```
-
+<>
 ## Increment operator
 
 The `++` operator increases a variable by 1.
@@ -424,7 +426,7 @@ Result:
 ```text
 x = 11
 ```
-
+<>
 ## Decrement operator
 
 The `--` operator decreases a variable by 1.
@@ -445,7 +447,7 @@ Result:
 ```text
 x = 9
 ```
-
+<>
 ## Post-increment vs pre-increment
 
 There are two forms:
@@ -658,7 +660,7 @@ Result:
 ```text
 13
 ```
-
+<>
 ## Negative numbers with %
 
 In C, the sign of the remainder usually follows the left number.
@@ -829,7 +831,7 @@ If you wanted 26, write:
 ```c
 int result = (10 + 3) * 2;
 ```
-
+<>
 ## What I need to remember
 
 ```text
@@ -860,4 +862,86 @@ x-- means subtract 1.
 
 * / % happen before + -.
 Use parentheses to control order.
+```
+
+## Printing symbols in printf
+
+Most symbols can be printed normally inside `printf`.
+
+Example:
+
+```c
+printf("Symbols: ! @ # $ ^ & *\n");
+```
+
+Output:
+
+```text
+Symbols: ! @ # $ ^ & *
+```
+
+## The percent sign `%` is special
+
+The percent sign `%` is special in `printf` because `printf` uses `%` for placeholders.
+
+Examples:
+
+```c
+%d   // int
+%f   // float or double
+%c   // char
+%s   // string
+```
+
+So if we want to print a real `%` symbol, we must write:
+
+```c
+%%
+```
+
+Example:
+
+```c
+printf("Percent sign: %%\n");
+```
+
+Output:
+
+```text
+Percent sign: %
+```
+
+## Example with modulus
+
+```c
+printf("10 %% 3 = %d\n", 10 % 3);
+```
+
+Output:
+
+```text
+10 % 3 = 1
+```
+
+In this line:
+
+```c
+printf("10 %% 3 = %d\n", 10 % 3);
+```
+
+`%%` prints the real `%` symbol.
+
+`%d` prints the integer answer.
+
+`10 % 3` does the actual modulus math.
+
+## What I need to remember
+
+```text
+! @ # $ ^ & * = print normally
+
+% = special in printf
+
+To print a real percent sign:
+%%
 ```
