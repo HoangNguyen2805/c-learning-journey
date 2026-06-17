@@ -1023,5 +1023,153 @@ Prototype goes before main.
 
 Real function code can go after main.
 ```
-----------------------------------------------------------------------------------------
+---
+
+## Lesson 07E - Variable Scope
+
+Scope means where a variable can be used.
+
+A variable does not work everywhere in the program.
+
+Where you create the variable decides where you can use it.
+
+---
+
+## 1. Variable inside main
+
+```c
+int main() {
+    int age = 20;
+
+    printf("%d\n", age);
+
+    return 0;
+}
+```
+
+`age` was created inside `main`.
+
+So `age` can only be used inside `main`.
+
+---
+
+## 2. Variable inside a function
+
+```c
+void printNumber() {
+    int number = 10;
+    printf("%d\n", number);
+}
+```
+
+`number` was created inside `printNumber`.
+
+So `number` can only be used inside `printNumber`.
+
+You cannot use `number` inside `main`.
+
+---
+
+## 3. Parameters are local variables
+
+```c
+int add(int a, int b) {
+    return a + b;
+}
+```
+
+`a` and `b` are parameters.
+
+They only exist inside the `add` function.
+
+They do not exist inside `main`.
+
+---
+
+## 4. Same variable name can exist in different functions
+
+```c
+void functionOne() {
+    int x = 10;
+}
+
+void functionTwo() {
+    int x = 20;
+}
+```
+
+These are not the same `x`.
+
+Each function has its own variable.
+
+---
+
+## 5. Block scope
+
+A block is code inside `{ }`.
+
+```c
+if (1) {
+    int score = 90;
+    printf("%d\n", score);
+}
+```
+
+`score` only exists inside the `if` block.
+
+Outside the block, `score` does not exist.
+
+---
+
+## Common mistake
+
+Wrong:
+
+```c
+void calculate() {
+    int total = 100;
+}
+
+int main() {
+    printf("%d\n", total);
+    return 0;
+}
+```
+
+This is wrong because `total` was created inside `calculate`.
+
+`main` cannot see it.
+
+Correct:
+
+```c
+int calculate() {
+    int total = 100;
+    return total;
+}
+
+int main() {
+    int result = calculate();
+    printf("%d\n", result);
+
+    return 0;
+}
+```
+
+The function returns the value, then `main` stores it.
+
+---
+
+## Memory rule
+
+```text
+Variable created inside a function = only works inside that function
+
+Parameter = only works inside that function
+
+Variable created inside { } = only works inside that block
+
+If main needs a value from another function, use return
+```
+
 
