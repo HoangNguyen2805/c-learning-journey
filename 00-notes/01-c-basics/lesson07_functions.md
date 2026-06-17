@@ -6,6 +6,135 @@ A function is a reusable block of code.
 
 Instead of writing the same code again and again, we can put that code inside a function and call it when we need it.
 
+# Day 07 - Functions in C
+
+## Big Picture
+
+A function is a reusable block of code.
+
+Instead of writing the same code again and again, we can put that code inside a function and call it whenever we need it.
+
+Functions help us:
+
+```text
+organize code
+reuse code
+make main() cleaner
+separate jobs
+make programs easier to read
+```
+
+---
+
+## Function idea
+
+A function can do one job.
+
+Example jobs:
+
+```text
+print a message
+add numbers
+calculate an average
+print a grade
+check pass or fail
+```
+
+Each function should have a clear purpose.
+
+---
+
+## Basic function format
+
+```c
+returnType functionName(parameters) {
+    // code
+}
+```
+
+Example:
+
+```c
+void sayHello() {
+    printf("Hello\n");
+}
+```
+
+---
+
+## Function parts
+
+```text
+return type = what the function sends back
+
+function name = the name we use to call the function
+
+parameters = values the function receives
+
+function body = code inside { }
+
+return = sends a value back
+```
+
+---
+
+## Function call
+
+Creating a function does not run it automatically.
+
+To run a function, we must call it.
+
+Example:
+
+```c
+sayHello();
+```
+
+---
+
+## Three main types we learn in Day 07
+
+```text
+07A - basic function
+A function with no parameter and no return value.
+
+07B - function with parameters
+A function that receives values.
+
+07C - function with return value
+A function that sends an answer back.
+
+07D - function prototypes
+A preview that tells C the function exists later.
+
+07E - variable scope
+Where variables can and cannot be used.
+
+07F - cumulative function review
+Using functions with old lessons together.
+```
+
+---
+
+## Memory rule
+
+```text
+void = function does not return a value
+
+parameters = input going into the function
+
+return value = output coming back from the function
+
+function call = using the function
+```
+
+Functions are like small machines:
+
+```text
+input -> function does work -> output
+```
+
+----------------------------------------------------------------------------------------
 ## Lesson 07A - Basic Function With No Input and No Return
 
 This lesson is only the introduction to functions.
@@ -645,4 +774,254 @@ int function = returns an int answer
 return = send value back
 ```
 -------------------------------------------------------------
+
+## Lesson 07D - Function Prototypes
+
+A function prototype is a preview of a function.
+
+It tells C:
+
+```text
+This function exists later in the file.
+Here is the return type.
+Here is the function name.
+Here are the parameters.
+```
+
+---
+
+## Why do we need prototypes?
+
+C reads code from top to bottom.
+
+If `main()` calls a function before C has seen that function, C can get confused.
+
+Example without prototype:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int result = addNumbers(5, 3);
+    printf("Result: %d\n", result);
+
+    return 0;
+}
+
+int addNumbers(int a, int b) {
+    return a + b;
+}
+```
+
+Problem:
+
+```text
+main uses addNumbers before C has seen addNumbers.
+```
+
+A prototype fixes this.
+
+---
+
+## Prototype example
+
+```c
+#include <stdio.h>
+
+int addNumbers(int a, int b);
+
+int main() {
+    int result = addNumbers(5, 3);
+    printf("Result: %d\n", result);
+
+    return 0;
+}
+
+int addNumbers(int a, int b) {
+    return a + b;
+}
+```
+
+This line is the prototype:
+
+```c
+int addNumbers(int a, int b);
+```
+
+It tells C:
+
+```text
+There will be a function named addNumbers later.
+It returns an int.
+It needs two int parameters.
+```
+
+---
+
+## Prototype vs full function
+
+Prototype:
+
+```c
+int addNumbers(int a, int b);
+```
+
+Full function:
+
+```c
+int addNumbers(int a, int b) {
+    return a + b;
+}
+```
+
+Main difference:
+
+```text
+Prototype ends with semicolon ;
+
+Full function has body { }
+```
+
+---
+
+## Universal rule
+
+```text
+Prototype = function preview
+
+Function definition = real function code
+```
+
+Prototype:
+
+```c
+double calculateAverage(int total);
+```
+
+Function definition:
+
+```c
+double calculateAverage(int total) {
+    return total / 3.0;
+}
+```
+
+---
+
+## Important rules
+
+The prototype must match the real function.
+
+These must match:
+
+```text
+return type
+function name
+parameter types
+parameter order
+```
+
+Correct:
+
+```c
+int addNumbers(int a, int b);
+
+int addNumbers(int a, int b) {
+    return a + b;
+}
+```
+
+Wrong:
+
+```c
+int addNumbers(int a, int b);
+
+double addNumbers(int a, int b) {
+    return a + b;
+}
+```
+
+Wrong because prototype says `int`, but function returns `double`.
+
+---
+
+## Parameter names in prototypes
+
+Parameter names are allowed but not required.
+
+Both are okay:
+
+```c
+int addNumbers(int a, int b);
+```
+
+```c
+int addNumbers(int, int);
+```
+
+For learning, use parameter names because it is easier to read.
+
+---
+
+## When should we use prototypes?
+
+Use prototypes when you want this structure:
+
+```text
+#include
+prototypes
+main
+function definitions
+```
+
+Example:
+
+```c
+#include <stdio.h>
+
+int addNumbers(int a, int b);
+double calculateAverage(int total);
+void printMessage();
+
+int main() {
+    printMessage();
+
+    int total = addNumbers(80, 90);
+    double average = calculateAverage(total);
+
+    printf("Total: %d\n", total);
+    printf("Average: %.2f\n", average);
+
+    return 0;
+}
+
+int addNumbers(int a, int b) {
+    return a + b;
+}
+
+double calculateAverage(int total) {
+    return total / 2.0;
+}
+
+void printMessage() {
+    printf("--- Function Prototype Lesson ---\n");
+}
+```
+
+---
+
+## Memory rule
+
+```text
+Prototype tells C the function exists.
+
+Prototype has semicolon.
+
+Full function has braces.
+
+Prototype goes before main.
+
+Real function code can go after main.
+```
+----------------------------------------------------------------------------------------
 

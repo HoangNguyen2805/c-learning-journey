@@ -14,37 +14,3 @@ int main() {
 
     return 0;
 }
-
-/*
-## Lesson 05A - Basic if Statement
-
-An if statement runs code only when a condition is true.
-
-Example:
-
-int age = 20;
-
-if (age >= 18) {
-    printf("You are an adult.\n");
-}
-
-The condition is:
-
-age >= 18
-
-This asks:
-
-Is age greater than or equal to 18?
-
-Since age is 20, the condition is true, so the code inside { } runs.
-
-Code outside the if block always runs.
-
-Important:
-
-if (condition) {
-    code runs if condition is true
-}
-
-The { } block belongs to the if statement.
-*/

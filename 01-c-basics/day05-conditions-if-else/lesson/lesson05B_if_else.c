@@ -19,27 +19,3 @@ int main() {
 
     return 0;
 }
-
-/*
-## Lesson 05B - if / else
-
-if / else lets the program choose between two paths.
-
-Example:
-
-if (age >= 18) {
-    printf("You can vote.\n");
-} else {
-    printf("You cannot vote yet.\n");
-}
-
-If age is 18 or older, the if block runs.
-
-If age is below 18, the else block runs.
-
-Only one block runs:
-- if block OR
-- else block
-
-Code after the if / else still runs normally.
-*/

@@ -117,3 +117,43 @@ Important command:
 
 gcc lesson01_hello.c -o lesson01
 ./lesson01
+
+----------------------------------------------------------------------------------------
+
+Compile
+
+Commands are:
+``
+gcc lesson01_hello.c -o lesson01
+./lesson01
+``
+
+Now we compile and run the program using command. A compiler is a translator that converts 
+the human-readable C code into machine code (binary 01001010) that the computer can execute.
+
+In terminal type: gcc lesson01_hello.c -o lesson01
+         where:
+         - gcc = C compiler command
+         - lesson01_hello.c     = input C file
+         - lesson01_hello.c = the C file's name that we want to compile
+         - -o = output name, name of the exe file that create after compile the source code.
+
+gcc lesson01_hello.c -o lesson01 -> gcc, compile lesson01_hello.c and name the created program lesson01
+
+A compiler turn this 
+        C code humans can read
+                 into
+        a program the computer can run
+
+So the flow is 
+- lesson01_hello.c → gcc → lesson01
+
+What is lesson01?
+After compile the source code (lesson01_hello.c)
+We get an executable program name (lesson01) that we can run on our computer. 
+When we run lesson01, it will execute the instructions in the original C code and produce the output we expect.
+
+What is ./ in ./lesson01?
+This command: ./ mean -> look in the current folder for the executable file named lesson01 and run it.
+So ./lesson01 mean look inside lesson01's folder and run the lesson01 program.
+----------------------------------------------------------------------------------------

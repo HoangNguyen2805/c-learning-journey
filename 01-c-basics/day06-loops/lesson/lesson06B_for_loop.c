@@ -12,38 +12,3 @@ int main() {
 
     return 0;
 }
-
-/*
-## Lesson 06B - for loop
-
-A for loop repeats code using start, condition, and update in one line.
-
-Format:
-
-for (start; condition; update) {
-    code;
-}
-
-Example:
-
-for (int i = 1; i <= 5; i++) {
-    printf("%d\n", i);
-}
-
-Parts:
-
-int i = 1 means start at 1.
-i <= 5 means keep looping while i is 5 or less.
-i++ means add 1 after each loop.
-
-The loop prints:
-
-1
-2
-3
-4
-5
-
-A for loop is good when I know how many times I want to repeat.
-
-*/

@@ -945,3 +945,438 @@ printf("10 %% 3 = %d\n", 10 % 3);
 To print a real percent sign:
 %%
 ```
+----------------------------------------------------------------------------------------
+
+## Lesson 04A - Arithmetic Operators
+
+Arithmetic operators are used to do basic math in C.
+
+The main arithmetic operators are:
+
+```text
++   addition
+-   subtraction
+*   multiplication
+/   division
+%   remainder / modulus
+```
+
+---
+
+## Example
+
+```c
+int a = 10;
+int b = 3;
+```
+
+Using those values:
+
+```text
+a + b = 13
+a - b = 7
+a * b = 30
+a / b = 3
+a % b = 1
+```
+
+---
+
+## Addition
+
+```c
+a + b
+```
+
+Adds two numbers.
+
+Example:
+
+```c
+printf("Addition: %d + %d = %d\n", a, b, a + b);
+```
+
+Output:
+
+```text
+Addition: 10 + 3 = 13
+```
+
+---
+
+## Subtraction
+
+```c
+a - b
+```
+
+Subtracts the second number from the first number.
+
+Example:
+
+```c
+printf("Subtraction: %d - %d = %d\n", a, b, a - b);
+```
+
+Output:
+
+```text
+Subtraction: 10 - 3 = 7
+```
+
+---
+
+## Multiplication
+
+```c
+a * b
+```
+
+Multiplies two numbers.
+
+Example:
+
+```c
+printf("Multiplication: %d * %d = %d\n", a, b, a * b);
+```
+
+Output:
+
+```text
+Multiplication: 10 * 3 = 30
+```
+
+---
+
+## Division
+
+```c
+a / b
+```
+
+Divides the first number by the second number.
+
+Example:
+
+```c
+printf("Division: %d / %d = %d\n", a, b, a / b);
+```
+
+Output:
+
+```text
+Division: 10 / 3 = 3
+```
+
+Because `a` and `b` are both `int`, C does integer division.
+
+That means C removes the decimal part.
+
+```text
+10 / 3 = 3.333...
+C keeps only 3
+```
+
+---
+
+## Modulus / Remainder
+
+```c
+a % b
+```
+
+Gives the remainder after division.
+
+Example:
+
+```c
+printf("Remainder: %d %% %d = %d\n", a, b, a % b);
+```
+
+Output:
+
+```text
+Remainder: 10 % 3 = 1
+```
+
+Because:
+
+```text
+10 / 3 = 3 remainder 1
+```
+
+---
+
+## Important printf rule for %
+
+In `printf`, `%` is special because it starts format specifiers like `%d`.
+
+So if you want to print a real percent sign or modulus symbol, use:
+
+```c
+%%
+```
+
+Example:
+
+```c
+printf("Remainder: %d %% %d = %d\n", a, b, a % b);
+```
+
+---
+
+## Memory rule
+
+```text
++ means add
+- means subtract
+* means multiply
+/ means divide
+% means remainder
+```
+
+Use `%` when you need the remainder.
+
+Use `%%` inside `printf` when you want to print the `%` symbol.
+
+---------------------------------------------------------------------------------------
+
+## Lesson 04B - Integer vs Decimal Division
+
+If both values are integers, C does integer division.
+
+Example:
+
+10 / 3 = 3
+
+C removes the decimal part.
+
+Even if the answer is stored inside a double, the calculation already happened as integer division first.
+
+Example:
+
+double result = 10 / 3;
+
+This gives:
+
+3.00
+
+To get decimal division, at least one value must be decimal.
+
+Example:
+
+double result = 10.0 / 3;
+
+This gives:
+
+3.33
+
+Another way is casting:
+
+int a = 10;
+int b = 3;
+
+double result = (double)a / b;
+
+This temporarily treats a as a double, so the answer is decimal.
+
+Important rules:
+
+int / int = int
+double / int = double
+int / double = double
+double / double = double
+
+If I want decimal division from int variables, use casting:
+
+(double)a / b
+
+---------------------------------------------------------------------------------------
+
+## Lesson 04C - Modulus / Remainder
+
+The % operator gives the remainder after division.
+
+Example:
+
+10 / 3 = 3
+10 % 3 = 1
+
+Meaning:
+
+10 divided by 3 = 3 remainder 1.
+
+The / operator gives the quotient.
+The % operator gives the remainder.
+
+More examples:
+
+10 % 2 = 0
+10 % 3 = 1
+10 % 4 = 2
+10 % 5 = 0
+
+% is useful for checking even or odd.
+
+10 % 2 = 0 means even.
+11 % 2 = 1 means odd.
+
+Important:
+
+% only works with integer types.
+
+Do not use % with float or double.
+Do not use % 0.
+
+---------------------------------------------------------------------------------------
+
+## Lesson 04D - Assignment Shortcuts
+
+Assignment shortcuts update the same variable.
+
+x += 3 means x = x + 3
+x -= 2 means x = x - 2
+x *= 4 means x = x * 4
+x /= 2 means x = x / 2
+x %= 5 means x = x % 5
+
+Example:
+
+int x = 10;
+
+x += 3;   x becomes 13
+x -= 2;   x becomes 11
+x *= 4;   x becomes 44
+x /= 2;   x becomes 22
+x %= 5;   x becomes 2
+
+Important:
+The value of x changes after every line.
+
+So x %= 5 is not 10 % 5.
+It is 22 % 5 because x already changed to 22.
+
+22 % 5 = 2
+
+---------------------------------------------------------------------------------------
+
+## Lesson 04E - Increment and Decrement
+
+x++ means add 1 to x.
+++x means add 1 to x.
+x-- means subtract 1 from x.
+--x means subtract 1 from x.
+
+If the line is by itself, x++ and ++x do almost the same thing.
+
+Example:
+
+int x = 5;
+x++;
+// x becomes 6
+
+++x;
+// x becomes 7
+
+The difference matters when it is inside another assignment.
+
+Post-increment:
+
+int a = 5;
+int b = a++;
+
+a++ means use old value first, then add 1.
+
+Step:
+b = 5
+a = 6
+
+Final:
+a = 6
+b = 5
+
+Pre-increment:
+
+int c = 5;
+int d = ++c;
+
+++c means add 1 first, then use the new value.
+
+Step:
+c = 6
+d = 6
+
+Final:
+c = 6
+d = 6
+
+Memory rule:
+
+x++ = use first, then add
+++x = add first, then use
+
+x-- = use first, then subtract
+--x = subtract first, then use
+
+---------------------------------------------------------------------------------------
+
+## Lesson 04F - Precedence and Parentheses
+
+Precedence means the order C does math.
+
+C does:
+
+1. Parentheses first: ()
+2. Multiplication, division, modulus next: * / %
+3. Addition and subtraction next: + -
+4. Assignment last: =
+
+Example:
+
+10 + 3 * 2 = 16
+
+C does 3 * 2 first, then adds 10.
+
+But:
+
+(10 + 3) * 2 = 26
+
+Parentheses force 10 + 3 to happen first.
+
+If operators have the same precedence, C usually goes left to right.
+
+Example:
+
+20 / 5 * 2 = 8
+
+C does:
+
+20 / 5 = 4
+4 * 2 = 8
+
+Subtraction also goes left to right.
+
+20 - 5 - 2 = 13
+
+C does:
+
+20 - 5 = 15
+15 - 2 = 13
+
+Parentheses can change the answer:
+
+20 - (5 - 2) = 17
+
+C does:
+
+5 - 2 = 3
+20 - 3 = 17
+
+Memory rule:
+
+Parentheses first.
+Then * / %.
+Then + -.
+Use parentheses when the order might be confusing.
+
+---

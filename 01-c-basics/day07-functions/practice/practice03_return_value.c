@@ -130,19 +130,27 @@ int addThreeScores(int a, int b, int c) {
 }
 
 double calculateAverage(int sum) {
-    int average = sum / 3.0;
+    double average = sum / 3.0;
     return average;
 }
 
 void printGrade (double average) {
-    if (average > 90) {
+    if (average >= 90) {
         printf("Grade: A\n");
-    } else if (average > 80){
+    } else if (average >= 80){
         printf("Grade: B\n");
-    } else if (average > 70){
+    } else if (average >= 70){
         printf("Grade: C\n");
     } else {
         printf("Grade: F\n");
+    }
+}
+
+void printStatus (double average) {
+    if (average >= 70) {
+        printf("Status: Pass\n");
+    } else {
+        printf("Status: Fail\n");
     }
 }
 
@@ -154,13 +162,16 @@ int main() {
     int c;
     char name[50];
     int sum = 0;
-    int average;
+    double average;
+    int totalPass = 0;
+    int totalFail = 0;
+
 
     printf("How many students: ");
-    scanf("%d", studentCount);
+    scanf("%d", &studentCount);
 
     for (int i = 1; i <= studentCount; i++) {
-        printf("Enter name: ");
+        printf("\nEnter name: ");
         scanf("%s", name);
 
         printf("Enter score 1: ");
@@ -175,13 +186,25 @@ int main() {
         sum = addThreeScores( a, b, c);
         average = calculateAverage(sum);
 
-        printf("\n--- Student Result---\n");
-        printf("Name: %s", name);
-        printf("Total: %d", sum);
-        printf("Average: %.2lf", average);
+        printf("\n--- Student Result ---\n");
+        printf("\nName: %s\n", name);
+        printf("Total: %d\n", sum);
+        printf("Average: %.2lf\n", average);
         printGrade(average);
+        printStatus (average);
+
+        if ( average >= 70){
+            totalPass++;
+        } else {
+            totalFail++;
+        }
     
     }
+
+    printf("\nTotal passed: %d\n", totalPass);
+    printf("Total failed: %d\n", totalFail);
+    printf("Program finished.\n");
+
     
     return 0;
 }
