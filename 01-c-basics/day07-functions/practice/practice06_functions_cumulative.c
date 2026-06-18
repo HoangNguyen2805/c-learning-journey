@@ -19,6 +19,7 @@ double calculateDiscount(double subtotal);
 double calculateTax(double subtotalAfterDiscount, double taxRate);
 double calculateFinalTotal(double subtotal, double discount, double tax);
 void printReceipt(char itemName[], double subtotal, double discount, double tax, double finalTotal);
+
 Program asks user for:
 item name
 price
