@@ -1,4 +1,4 @@
-/*Practice 2 — Fix errors
+./practice01_temperature_table_for/*Practice 2 — Fix errors
 
 Create:
 
