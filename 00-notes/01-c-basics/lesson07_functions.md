@@ -1171,5 +1171,208 @@ Variable created inside { } = only works inside that block
 
 If main needs a value from another function, use return
 ```
+---
 
+## Lesson 07F - Cumulative Functions Review
 
+This lesson combines everything from Day 07.
+
+By now, you have learned:
+
+```text
+basic function
+function parameter
+return value
+function prototype
+variable scope
+void function
+```
+
+---
+
+## Big picture
+
+A good C program should not put everything inside `main`.
+
+Instead, `main` should control the program, and functions should do smaller jobs.
+
+Good structure:
+
+```text
+prototypes
+main
+function definitions
+```
+
+---
+
+## Example structure
+
+```c
+#include <stdio.h>
+
+double calculateSubtotal(double price, int quantity);
+double calculateTax(double subtotal, double taxRate);
+double calculateFinalTotal(double subtotal, double tax);
+void printReceipt(double subtotal, double tax, double finalTotal);
+
+int main() {
+    double price;
+    int quantity;
+    double taxRate;
+
+    double subtotal;
+    double tax;
+    double finalTotal;
+
+    // input
+    // function calls
+    // output
+
+    return 0;
+}
+
+// function definitions
+```
+
+---
+
+## Function jobs
+
+Each function should have one clear job.
+
+Example:
+
+```text
+calculateSubtotal = calculate price before tax
+
+calculateTax = calculate tax amount
+
+calculateFinalTotal = calculate subtotal + tax
+
+printReceipt = print the result
+```
+
+---
+
+## Return value function
+
+A return value function gives an answer back.
+
+Example:
+
+```c
+double calculateSubtotal(double price, int quantity) {
+    return price * quantity;
+}
+```
+
+Call it in `main`:
+
+```c
+subtotal = calculateSubtotal(price, quantity);
+```
+
+Meaning:
+
+```text
+send price and quantity into function
+function calculates subtotal
+function returns answer
+main stores answer in subtotal
+```
+
+---
+
+## Void function
+
+A `void` function does not return a value.
+
+It usually prints something or performs an action.
+
+Example:
+
+```c
+void printReceipt(double subtotal, double tax, double finalTotal) {
+    printf("Subtotal: %.2f\n", subtotal);
+    printf("Tax: %.2f\n", tax);
+    printf("Final total: %.2f\n", finalTotal);
+}
+```
+
+Call it in `main`:
+
+```c
+printReceipt(subtotal, tax, finalTotal);
+```
+
+---
+
+## Scope reminder
+
+Variables inside one function do not belong to another function.
+
+Example:
+
+```c
+double calculateTax(double subtotal, double taxRate) {
+    double tax = subtotal * taxRate;
+    return tax;
+}
+```
+
+The variable `tax` inside this function only exists inside this function.
+
+If `main` needs the answer, use `return`.
+
+---
+
+## Prototype reminder
+
+Prototype goes before `main`.
+
+Example:
+
+```c
+double calculateTax(double subtotal, double taxRate);
+```
+
+Real function definition goes after `main`.
+
+Example:
+
+```c
+double calculateTax(double subtotal, double taxRate) {
+    return subtotal * taxRate;
+}
+```
+
+Prototype must match the real function:
+
+```text
+same return type
+same function name
+same parameter types
+same parameter order
+```
+
+---
+
+## Memory rule
+
+```text
+main controls the program
+
+return value functions calculate and send answers back
+
+void functions do actions but do not return values
+
+parameters receive values
+
+arguments are values sent into the function
+
+scope decides where variables can be used
+
+prototypes tell C the function exists later
+```
+---
