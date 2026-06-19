@@ -55,30 +55,21 @@ printf("%3d %8d\n", celsius, fahr);
 #include <stdio.h>
 
 int main() {
-
     int lower;
     int upper;
     int step;
     int celsius;
     int fahr;
 
-
     lower = 0;
     upper = 100;
     step = 10;
 
-    fahr = lower;
+    printf("Celsius Fahrenheit\n");
 
-    printf("While loop\n");
-    while (fahr <= upper) {
-        printf("%3d %6d\n", fahr, 5 * (fahr - 32) / 9);
-        fahr = fahr + step;
-    }
-
-
-    printf("\nFor loop\n");
-    for (fahr = lower; fahr <= upper; fahr = fahr + step) {
-        printf("%3d %6d\n", fahr, 5 * (fahr - 32) / 9);
+    for (celsius = lower; celsius <= upper; celsius = celsius + step) {
+        fahr = (celsius * 9 / 5) + 32;
+        printf("%3d %8d\n", celsius, fahr);
     }
 
     return 0;
