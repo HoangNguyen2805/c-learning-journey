@@ -1,78 +1,52 @@
 /*
-Practice 05 — Increment / Decrement.
-Task:
+Practice 01 - Increment and Decrement Operators
 
-Start with:
+Goal:
+Practice the main ideas from K&R 2.8.
 
-int x = 10;
+Requirements:
 
-Print each result:
+1. Include stdio.h.
 
-Start: 10
-After x++: 11
-After ++x: 12
-After x--: 11
-After --x: 10
+2. Create an int variable:
+   - x = 10
 
-Then do this second part:
+3. Print x.
 
-int a = 7;
-int b = a++;
+4. Use and print x after:
+   - x++
+   - ++x
+   - x--
+   - --x
 
-int c = 7;
-int d = ++c;
+5. Create a post-increment example:
+   - int a = 7;
+   - int b = a++;
 
-Post-increment:
-a = 8
-b = 7
+6. Print a and b.
 
-Pre-increment:
-c = 8
-d = 8
+7. Create a pre-increment example:
+   - int c = 7;
+   - int d = ++c;
 
-Compile/run:
+8. Print c and d.
 
-cd ~/Desktop/c-learning-journey/01-c-basics/day04-operators-math/practice
-gcc practice05_increment.c -o practice05_increment
-./practice05_increment
+9. Create a post-decrement example.
 
+10. Create a pre-decrement example.
+
+11. Add comments explaining:
+   - increment
+   - decrement
+   - post-increment
+   - pre-increment
+   - post-decrement
+   - pre-decrement
+
+Rules:
+- Do not use scanf.
+- Do not use if/else.
+- Do not use loops.
+- Do not copy the lesson file exactly.
+- Write it from memory first, then check your notes.
 */
-
-#include <stdio.h>
-
-int main() {
-
-    //First part:
-    int x = 10;
-
-    printf("Start: %d\n", x);
-
-    x++;
-    printf("After x++: %d\n", x);
-
-    ++x;
-    printf("After ++x: %d\n", x);
-
-    x--;
-    printf("After x--: %d\n", x);
-
-    --x;
-    printf("After --x: %d\n", x);
-
-    // Second part:
-    int a = 7;
-    int b = a++;
-
-    printf("\nPost-increment:\n");
-    printf("a = %d\n", a);
-    printf("b = %d\n", b);
-
-    int c = 7;
-    int d = ++c;
-
-    printf("\nPre-increment:\n");
-    printf("c = %d\n", c);
-    printf("d = %d\n", d);
-
-    return 0;
-}

@@ -1,63 +1,52 @@
 /*
-Practice 1 — arithmetic operators
+Practice 01 - Arithmetic Operators
 
-Task:
+Goal:
+Practice the main ideas from K&R 2.5 Arithmetic Operators.
 
-Use these variables:
+Requirements:
 
-int x = 20;
-int y = 6;
+1. Include stdio.h.
 
-Print:
+2. Create two int variables:
 
-x = 20
-y = 6
+   * a = 10
+   * b = 3
 
---- Practice Arithmetic ---
-Addition: 26
-Subtraction: 14
-Multiplication: 120
-Division: 3
-Remainder: 2
+3. Print the values of a and b.
 
-Hints only:
+4. Print the result of:
 
-addition uses +
-subtraction uses -
-multiplication uses *
-division uses /
-remainder uses %
-inside printf, print real % using %%
+   * a + b
+   * a - b
+   * a * b
+   * a / b
+   * a % b
 
-Compile/run:
+5. Print these extra examples:
 
-cd ~/c-learning-journey/01-c-basics/day04-operators-math/practice
-gcc practice01_arithmetic.c -o practice01
-./practice01
+   * 10 / 3
+   * 10 % 3
+   * 10 % 2
+   * 10 % 4
+   * 10 + 2 * 5
 
-*/
+6. Add comments explaining:
 
-#include <stdio.h>
+   * addition
+   * subtraction
+   * multiplication
+   * integer division
+   * remainder / modulus
+   * why 10 / 3 gives 3
+   * why % only works with integers
+   * why dividing by zero is bad
 
-int main() {
+Rules:
 
-    int x = 20;
-    int y = 6;
-
-    printf("x = %d\n", x);
-    printf("y = %d\n", y);
-
-    int w = x * y;
-    int v = x / y;
-    int z = x % y;
-
-    printf("--- Practice Arithmethic ---\n\n");
-    printf("Addition: %d\n", x + y);
-    printf("Subtraction: %d\n", x - y);
-    printf("Multiplication: %d\n", w);
-    printf("Division: %d\n", v);
-    printf("Remainder: %d\n", z);
-
-
-    return 0;
-}
+* Do not use scanf.
+* Do not use if/else.
+* Do not use loops.
+* Do not copy the lesson file exactly.
+* Write it from memory first, then check your notes.
+  */
