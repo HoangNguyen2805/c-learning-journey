@@ -1,31 +1,55 @@
-1. What is a variable?
-- Variable is an name that you can assign value to or variable can represent some given value.
-2. What is a data type?
-- Data type telling what kind of value that the variable holding.
-3. In `int age = 25;`, what is `int`?
-- Data type
-4. In `int age = 25;`, what is `age`?
-- Variable
-5. In `int age = 25;`, what is `25`?
-- Value that assign to age variiable, the type of whole number.
-6. Which data type stores whole numbers?
-- Int , short , long , long long
-7. Which data type stores one character?
-- char
-8. Which data type stores text/string in C?
-- char []
-9. What is the difference between `'A'` and `"A"`?
-- 'A' is char with one letter and "A" is char [] which is and array can contain multiple letter.
-10. What placeholder prints an int?
-- %d
-11. What placeholder prints a char?
-- %c
-12. What placeholder prints a string?
-- %s
-13. What does `%.2f` mean?
-- mean float which is number with 2 digit after decimal.
-- fix: %.2f means print a decimal number with 2 digits after the decimal point.
-14. Why does `true` print as `1`?
-- because true = 1 and false = 0
-15. What header do you need to use `bool`?
-- #include <stdbool.h>
+# Mini Quiz - 2.2 Data Types and Sizes
+
+1. What does a data type tell C?
+
+2. What type stores one character?
+
+3. What type stores text/string in C?
+
+4. What placeholder prints one character?
+
+5. What placeholder prints a string?
+
+6. What type stores whole numbers?
+
+7. What type stores decimal numbers?
+
+8. Which one is more precise: `float` or `double`?
+
+9. What does `short` mean?
+
+10. What does `long` mean?
+
+11. What does `signed` mean?
+
+12. What does `unsigned` mean?
+
+13. If a type has `n` bits, how many values can it represent?
+
+14. If `char` is 8 bits, how many values can it represent?
+
+15. What is the range of an 8-bit `unsigned char`?
+
+16. What is the range of an 8-bit `signed char`?
+
+17. What happens when unsigned arithmetic goes past the maximum value?
+
+18. What does `sizeof(type)` show?
+
+19. What placeholder should be used to print a `sizeof` result?
+
+20. Which header gives integer limits?
+
+21. Which header gives floating-point limits?
+
+22. What does `CHAR_BIT` tell us?
+
+23. What does `INT_MAX` tell us?
+
+24. What does `FLT_MAX` tell us?
+
+25. What header allows `bool`, `true`, and `false`?
+
+26. What does `true` print as in C?
+
+27. What does `false` print as in C?
