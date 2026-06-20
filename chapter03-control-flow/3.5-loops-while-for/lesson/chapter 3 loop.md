@@ -1,4 +1,4 @@
-# Day 06 - Loops in C
+# Chapter 3 - Loops in C
 
 ## What is a loop?
 
