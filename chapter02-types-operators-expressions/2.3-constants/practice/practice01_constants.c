@@ -67,3 +67,13 @@ Rules:
 * Do not copy the lesson file exactly.
 * Write it from memory first, then check your notes.
   */
+
+  #include <stdio.h>
+
+  int main() {
+   int decimalNumber = 31;   // decimal
+   int octalNumber = 037;    // octal, starts with 0
+   int hexNumber = 0x1F;     // hexadecimal, starts with 0x
+
+   return 0;
+  }
