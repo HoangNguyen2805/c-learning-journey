@@ -9,7 +9,8 @@ enum boolean {
     YES
 };
 
-int main() {
+int main(){
+    
     int decimalNumber = 31;
     int octalNumber = 037;
     int hexNumber = 0x1F;
@@ -36,7 +37,7 @@ int main() {
     printf("Unsigned long constant: %lu\n", unsignedLongNumber);
 
     printf("Normal floating constant: %.2f\n", normalFloat);
-    printf("Scientific floating constant: %.2f\n", scientificFloat);
+    printf("Scientific floating constant: %.2e\n", scientificFloat);
 
     printf("Character constant: %c\n", grade);
     printf("String constant: %s\n", name);
