@@ -1,21 +1,44 @@
 #include <stdio.h>
 
 int main() {
+    int score = 85;
+    int age = 17;
+    int hasID = 1;
 
-    int age;
+    printf("If statement:\n");
 
-    printf("Enter age: ");
-    scanf("%d", &age);
+    if (score >= 70)
+        printf("Score is passing.\n");
 
-    printf("Age: %d\n", age);
+    printf("\nIf-else statement:\n");
 
-    if (age >= 18) {                        // TRUE , age is above 18
-        printf("You can vote.\n");
-    } else {                                // FALSE , age is below 18
-        printf("You cannot vote yet.\n");
+    if (age >= 18)
+        printf("Adult\n");
+    else
+        printf("Not adult\n");
+
+    printf("\nIf-else with braces:\n");
+
+    if (score >= 70) {
+        printf("Pass\n");
+        printf("Good job\n");
+    }
+    else {
+        printf("Fail\n");
+        printf("Try again\n");
     }
 
-    printf("Program finished.\n");
+    printf("\nNested if:\n");
+
+    if (age >= 16) {
+        if (hasID)
+            printf("Old enough and has ID\n");
+        else
+            printf("Old enough but no ID\n");
+    }
+    else {
+        printf("Too young\n");
+    }
 
     return 0;
 }

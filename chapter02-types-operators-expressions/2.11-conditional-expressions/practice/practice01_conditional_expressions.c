@@ -51,3 +51,65 @@ Rules:
 - Do not copy the lesson file exactly.
 - Write it from memory first, then check your notes.
 */
+
+#include <stdio.h>
+
+int main() {
+
+   // 2.
+   int a = 10;
+   int b = 20;
+
+   // 3.
+   int max;
+   int min; 
+   max = ( a > b ) ? a : b;
+   min = ( a < b ) ? a : b;
+
+   // 4.
+   printf("a = %d\n", a);
+   printf("b = %d\n", b);
+   printf("Larger = %d\n", max);
+   printf("Smaller = %d\n", min);
+
+   // 5.
+   int score = 85;
+
+   // 6.
+   printf("%s\n", (score >= 70) ? "Pass" : "Fail" );
+
+   // 7.
+   int age = 24;
+
+   // 8.
+   printf("%s\n", (age >= 18) ? "Adult" : "Not adult" );
+
+   // 9.
+   printf("a > b: %d\n", (a > b)? 1 : 0);
+   printf("a == b: %d\n", (a == b)? 1 : 0);
+   printf("a != b: %d\n", (a != b)? 1 : 0);
+
+   // 10.
+// Conditional expression:
+// A short way to choose between two values.
+// Format: condition ? true_value : false_value
+
+// Condition:
+// The test that C checks first.
+// If the condition is true, C uses the value before the colon.
+// If the condition is false, C uses the value after the colon.
+
+// True value:
+// The value used when the condition is true.
+// Example: in score >= 70 ? "Pass" : "Fail", "Pass" is the true value.
+
+// False value:
+// The value used when the condition is false.
+// Example: in score >= 70 ? "Pass" : "Fail", "Fail" is the false value.
+
+// Parentheses:
+// Parentheses make the condition easier to read.
+// They help show which part is being tested.
+
+   return 0;
+}

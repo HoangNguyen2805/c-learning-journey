@@ -113,6 +113,44 @@ Rules:
 
    // 6.
    printf("\n10 + 5 > 12: %d\n", 10 + 5 > 12);
+
+   // 7.
+/*
+   ```c
+// Relational operator:
+// Compares two values and gives true or false.
+// In C, false is 0 and true is usually 1.
+// Examples: >, >=, <, <=, ==, !=
+
+// Logical operator:
+// Combines or reverses true/false values.
+// Examples: &&, ||, !
+
+// Difference between = and ==:
+// = assigns a value to a variable.
+// == compares two values to see if they are equal.
+
+// AND:
+// && means both sides must be true.
+printf("(age > 18 && age < 30): %d\n", age > 18 && age < 30);
+
+// OR:
+// || means at least one side must be true.
+printf("(age < 18 || age > 65): %d\n", age < 18 || age > 65);
+
+// NOT:
+// ! reverses true and false.
+// !0 gives 1 because 0 is false.
+// !1 gives 0 because nonzero is true.
+printf("!0: %d\n", !0);
+printf("!1: %d\n", !1);
+
+// Short-circuit evaluation:
+// For &&, if the left side is false, C does not check the right side.
+// For ||, if the left side is true, C does not check the right side.
+// C stops early when it already knows the final answer.
+```
+*/
    
 
    return 0;

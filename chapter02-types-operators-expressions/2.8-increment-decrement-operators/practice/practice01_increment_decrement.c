@@ -1,4 +1,4 @@
-/*
+  /*
 Practice 01 - Increment and Decrement Operators
 
 Goal:
@@ -50,3 +50,90 @@ Rules:
 - Do not copy the lesson file exactly.
 - Write it from memory first, then check your notes.
 */
+
+#include <stdio.h>
+
+int main () {
+
+   // 2.
+   int x = 10;
+
+   // 3.
+   printf("x = %d\n", x);
+
+   // 4.
+   x++;
+   printf("x++ = %d\n", x);
+
+   ++x;
+   printf("++x = %d\n", x);
+   
+   x--;
+   printf("x-- = %d\n", x);
+   
+   --x;
+   printf("--x = %d\n", x);
+
+   // 5.
+   int a = 7;
+   int b = a++;
+
+   // 6. 
+   printf("a = %d\n", a);
+   printf("b = %d\n", b);
+
+   // 7.
+   int c = 7;
+   int d = ++c;
+
+   // 8.
+   printf("c = %d\n", c);
+   printf("d = %d\n", d);
+
+   // 9.
+   int e = 7;
+   int f = e--;
+
+   printf("e = %d\n", e);
+   printf("f = %d\n", f);
+
+   // 10.
+
+   int g = 7;
+   int h = --g;
+
+   printf("g = %d\n", g);
+   printf("h = %d\n", h);
+
+   // 11.
+   /*
+   ```c
+// Increment:
+// The ++ operator increases a variable by 1.
+x++;
+
+// Decrement:
+// The -- operator decreases a variable by 1.
+x--;
+
+// Post-increment:
+// x++ uses the old value first, then increases x by 1.
+y = x++;
+
+// Pre-increment:
+// ++x increases x by 1 first, then uses the new value.
+y = ++x;
+
+// Post-decrement:
+// x-- uses the old value first, then decreases x by 1.
+y = x--;
+
+// Pre-decrement:
+// --x decreases x by 1 first, then uses the new value.
+y = --x;
+```
+
+   */
+   
+   return 0;
+}

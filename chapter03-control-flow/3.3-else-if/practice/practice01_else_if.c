@@ -42,3 +42,15 @@ Rules:
 - Do not copy the lesson file exactly.
 - Write it from memory first, then check your notes.
 */
+
+#include <stdio.h>
+
+int main() {
+
+   // 2.
+   int score = 40;
+
+   // 3.
+
+   return 0;
+}
