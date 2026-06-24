@@ -51,6 +51,48 @@ int main() {
    int score = 40;
 
    // 3.
+   if (score >= 90) {
+      printf("A\n");
+   } else if (score >= 80) {
+      printf("B\n");
+   } else if (score >= 70) {
+      printf("C\n");
+   } else {
+      printf("Fail\n");
+   }
+   
+   // 4.
+   int temperature = 76;
+   
 
+   // 5.
+   if (temperature >= 90)
+      printf("Hot\n");
+   else if (temperature >= 70)
+      printf("Warm\n");
+   else if (temperature >= 50)
+      printf("Cool\n");
+   else
+      printf("Cold\n");
+
+   // 6.
+   int temperatureC = 25;
+
+   if (temperatureC >= 32)
+      printf("Hot\n");
+   else if (temperatureC >= 21)
+      printf("Warm\n");
+   else if (temperatureC >= 10)
+      printf("Cool\n");
+   else
+      printf("Cold\n");
+
+   // 7.
+   // if checks the first condition.
+   // else if checks another condition only if the previous condition was false.
+   // else runs only when all previous conditions are false.
+   // Order matters because C checks from top to bottom.
+   // Only one branch runs because once C finds the first true condition,
+   // it runs that block and skips the rest of the chain.
    return 0;
 }
