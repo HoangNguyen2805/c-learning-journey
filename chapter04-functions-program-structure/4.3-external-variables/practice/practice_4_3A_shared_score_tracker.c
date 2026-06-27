@@ -82,22 +82,90 @@ Rules:
 #include <stdio.h>
 
 int score = 0;
-int ationCount = 0;
+int actionCount = 0;
+
+void addPoints(int amount);
+void subtractPoints(int amount);
+void showScore(void);
+void resetScore(void);
 
 int main() {
 
     int choice;
+    int amount;
 
     do {
-        printf("Menu:\n"
+        printf("\n\nMenu:\n"
                 "1 - Add points\n"
                 "2 - Subtract points\n"
                 "3 - Show current score\n"
                 "4 - Reset score\n"
-                "0 - Quit\n");
+                "0 - Quit\n"
+                "Choice: \n");
+        scanf("%d", &choice);
 
+        switch(choice){
+          case 0:
+            printf("Total actions performed: %d\n", actionCount);
+            printf("Quitting.\n");
+            break;
+
+          case 1:
+            printf("Enter amount: ");
+            scanf("%d", &amount);
+            addPoints(amount);
+            printf("Score is now: %d\n", score);
+            actionCount++;
+            break;
+
+          case 2:
+            printf("Enter amount: ");
+            scanf("%d", &amount);
+            if (score - amount < 0){
+              printf("Cannot go below zero.\n");
+              continue;
+            } else {
+              subtractPoints(amount);
+              printf("Score is now: %d\n", score);
+              actionCount++;
+              break;
+            }
         
+          // case 3: -> This also work
+          // printf("Current score: %d", score);
+          case 3:
+            showScore();
+            actionCount++;
+            break;
+
+          case 4:
+            resetScore();
+            actionCount++;
+            break;
+
+          default:
+            printf("Invalid choice, try again!\n");   
+            break;       
+        }
+
     } while (choice != 0);
 
     return 0;
+}
+
+void addPoints(int amount){
+  score = score + amount;
+}
+
+void subtractPoints(int amount){
+  score = score - amount;
+}
+
+void showScore(void){
+  printf("Current score: %d", score);
+}
+
+void resetScore(void){
+  score = 0;
+  printf("Your score is now reset to 0.\n");
 }
