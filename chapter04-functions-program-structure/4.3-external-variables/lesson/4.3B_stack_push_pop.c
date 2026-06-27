@@ -1,3 +1,5 @@
+// NOTE: This uses arrays (val[]), which I haven't learned yet.
+// Revisit and fully understand this once Chapter 5 (arrays) is done.
 #include <stdio.h>
 
 #define MAXVAL 100
