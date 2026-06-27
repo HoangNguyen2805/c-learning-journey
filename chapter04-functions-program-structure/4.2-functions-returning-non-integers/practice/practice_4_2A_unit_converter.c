@@ -87,13 +87,15 @@ Rules:
 
 #include <stdio.h>
 
-double CtoF (double c, double f);
-double FtoC (double c, double f);
+double CtoF (double c);
+double FtoC (double f);
 double average (double a, double b);
+char letterGrade (double grade);
 
 int main() {
 
     int choice;
+    int count = 0;
 
     do {
 
@@ -101,41 +103,61 @@ int main() {
         double f;
         double a;
         double b;
-        double result;
+        double grade;
 
-        printf("Menu:\n"
+        printf("\n\nMenu:\n"
                 "1 - Celsius to Fahrenheit\n"
                 "2 - Fahrenheit to Celsius\n"
                 "3 - Average of two numbers\n"
                 "4 - Letter grade from a score\n"
-                "0 - Quit\n");
+                "0 - Quit\n"
+                "Choice: ");
+        scanf("%d", &choice);
+        
 
         switch(choice){
+            case 0:
+                    printf("Total operations performed: %d\n", count);
+                    printf("Quitting.\n");
+                break;
+
             case 1:
-                printf("Enter in Celsius temperature: ");
-                scanf("%d", c);
-                printf("Result: %.2f", CtoF (c,f));
+                printf("\nEnter in Celsius temperature: ");
+                scanf("%lf", &c);
+                printf("Result: %.2lf F\n", CtoF (c));
+                count++;
                 break;
 
             case 2:
-                printf("Enter in Fahrenheit temperature: ");
-                scanf("%d", f);
-                printf("Result: %.2f", FtoC (c,f));
+                printf("\nEnter in Fahrenheit temperature: ");
+                scanf("%lf", &f);
+                printf("Result: %.2lf C\n", FtoC (f));
+                count++;
                 break;
 
             case 3:
-                printf("Enter first number: ");
-                scanf("%d", a);
+                printf("\nEnter first number: ");
+                scanf("%lf", &a);
                 printf("Enter second number: ");
-                scanf("%d", b);
-                printf("Result: %.2f", average (a,b));
+                scanf("%lf", &b);
+                printf("Result: %.2lf\n", average (a,b));
+                count++;
+                break;
 
             case 4:
-                printf("Enter score: ");
+                printf("\nEnter score: ");
+                scanf("%lf", &grade);
+                if (grade < 0 || grade > 100){
+                    printf("Invalid score.\n");
+                    continue;
+                }
+                printf("Your grade is %c\n", letterGrade (grade));
+                count++;
+                break;
 
 
             default:
-                printf("Invalid choice, try again!");
+                printf("\nInvalid choice, try again!");
                 break;
         } 
         
@@ -144,14 +166,16 @@ int main() {
     return 0;
 }
 
-double CtoF (double c, double f){
+double CtoF (double c){
+    double f;
     f = c * 9.0/5.0 + 32.0;
     return f;
 }
 
-double FtoC (double c, double f){
+double FtoC (double f){
+    double c;
     c = (f - 32.0) * 5.0/9.0;
-    return f;
+    return c;
 }
 
 double average (double a, double b){
@@ -159,5 +183,15 @@ double average (double a, double b){
 }
 
 char letterGrade (double grade){
-
+    if (grade > 90){
+        return 'A';
+    } else if (grade > 80) {
+        return 'B';
+    } else if (grade > 70) {
+        return 'C';
+    } else if (grade > 60) {
+        return 'D';
+    } else {
+        return 'F';
+    }
 }
