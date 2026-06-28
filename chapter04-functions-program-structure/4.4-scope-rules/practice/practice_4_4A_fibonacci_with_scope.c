@@ -82,5 +82,23 @@ int main() {
 
     printf("Fibonacci sequence:\n");
 
+    int a = 1; // position 1
+    int b = 1; // position 2
+    int i; // so i start at position 3
+    extern result;
+    Z
+    for(i = 3; i <= n ; i++){ // n is
+      fib(n);
+      b = a;
+      result = b;
+
+    } 
+
     return 0;
+}
+
+int fib(int n){
+    int result;
+    a + b = result;
+    return result;
 }
