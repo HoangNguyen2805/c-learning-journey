@@ -97,9 +97,11 @@ int main() {
 
 #include <stdio.h>
 
-int processedCount = 0;   // v1 plain external - any function in this file can see it
+int processedCount = 0;   // v2 plain external - any function in this file can see it
 
 int reverseDigits(int num);
+void trackNumberProcessed(void);
+int getProcessedCount(void);
 
 int main() {
 
@@ -109,31 +111,34 @@ int main() {
 
     int num;
 
-    printf("Menu:\n"
+    printf("\nMenu:\n"
            "1 - Reverse a number\n"
            "2 - Show processed count\n"
            "0 - Quit\n"
-           "Enter choice: \n");
+           "Enter choice: ");
     scanf("%d", &choice);
 
     switch(choice){
       case 0:
-
+        printf("Quiting.\n");
+        break;
 
       case 1:
         printf("Enter a number: ");
         scanf("%d", &num);
         printf("Reversed: %d\n", reverseDigits(num));
-        processedCount++;   // v1 count this successful reversal
+        trackNumberProcessed(); // v1
+        processedCount++;   // v2 count this successful reversal
         break;
 
       case 2:
-
-
-        printf("");
-
+        printf("v2 = reports: %d\n", processedCount); // v2 (the correct way)
+        printf("v1 = getProcessedCount reports: %d\n", getProcessedCount()); // v1
+        break;
 
       default:
+        printf("Invalid choice, try again !\n");
+        break;
 
 
     }
@@ -185,3 +190,29 @@ int reverseDigits(int num){
   }
   return reversed;
 }
+
+// This is version one v1 for choice 2, mainly for static practice lesson
+// this is not the right way to but for learning purpose.
+// This function will be call in case 2 loop and it can count by incrementing
+//   each loop it pass by.
+// why static ?
+// everytime count is incrementing, it will store value regarless of 
+// whatever (loop , switch , if else, ...) thing trying reset or assignt
+// a different value to it, it won't reset. Value store in count forever.
+// Why version 1 v1 is bad in this situation ?
+//   - Lesson: static local variables are NOT shared between functions, 
+//             even with the same name
+// Even those 2 function have the same variable count.
+//   - trackNumberProcessed's count variable is to store value.
+//   - getProcessedCount's count is to return value that store in count.
+//   That was the plan but it not how it work because static local variables 
+//        are NOT shared between functions, even with the same name
+void trackNumberProcessed(void){ // v1
+  static int count = 0;
+  count++;
+} // no return needed - void
+
+int getProcessedCount(void){
+  static int count = 0;
+  return count; 
+} // must return, since this is how main() gets the value
