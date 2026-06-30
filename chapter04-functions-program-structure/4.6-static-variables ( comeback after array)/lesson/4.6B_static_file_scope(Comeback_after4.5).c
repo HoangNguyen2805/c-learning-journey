@@ -1,3 +1,6 @@
+// NOTE: This uses arrays AND demonstrates a concept (file-privacy)
+// that only fully matters in multi-file programs. Revisit fully
+// after Ch.5 (arrays) and Ch.4.5 (header files).
 #include <stdio.h>
 
 #define MAXVAL 100
