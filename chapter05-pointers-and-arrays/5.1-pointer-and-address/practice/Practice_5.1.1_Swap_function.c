@@ -39,16 +39,25 @@ int main() {
 // *a = what's inside the gate (the value at that address)
 // *a = *b; means "put what's at b's address into a's address"
 // temp = *a; means "look inside the address a points to and grab the value"
+
+/*
+Key insight: & and * are opposites of each other:
+
+&x — "give me the address of this value"
+*p — "give me the value at this address"
+*/
 #include <stdio.h>
 
 // Write your swap function here
-
-void swap(int *a, int *b){
+void swap (int *a, int *b) { //Arguments (or parameters) are inputs to a function — values or addresses you give the function so it can work with them.
+    // *a mean pointer point at a , so function will go to a's address and do something there, either print it or change it value.
     int temp = 0;
-    temp = *a; // Line 1: You saved a's value in temp
-    *a = *b; // Line 2: You need to put b's value into a's address (overwrite what's at a's address)
-    *b = temp; // Line 3: Then put temp (the original a value) into b's address
-    
+    // 1. temp = *a — save a's value (the location still exists)
+    temp = *a;
+    // 2. *a = *b — overwrite a's location with b's value
+    *a = *b;
+    // 3. *b = temp — put the saved value into b's location
+    *b = temp;
 }
 
 int main() {
@@ -60,8 +69,9 @@ int main() {
     printf("Before swap: a = %d, b = %d\n", a, b);
     
     // Call swap here
-    swap(&a, &b); // passes the addresses to the function, but it doesn't print anything.
+    swap(&a, &b);  // passes the addresses (where the variables live), not the value
+
     printf("After swap: a = %d, b = %d\n", a, b);
     
     return 0;
-}
+} 
