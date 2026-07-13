@@ -18,3 +18,11 @@ Some contiguous groups and their sums:
 So the answer is 6.
 You must find which contiguous chunk gives the maximum sum.
 */
+#include <stdio.h>
+
+int main() {
+
+    
+
+    return 0;
+}
