@@ -10,7 +10,7 @@ Using temp array — copy rotated elements to temp, then back
 Reversal algorithm — reverse subarrays to achieve rotation (optimal)
 */
 #include <stdio.h>
-
+// this is brute force
 int main(){
 
     printf("Shift the element to the LEFT as much as you want.\n");
