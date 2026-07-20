@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+void printArray(int *arr, int size);
+
 int main() {
     printf("=== Chapter 5.3: Pointers and Arrays ===\n\n");
 
