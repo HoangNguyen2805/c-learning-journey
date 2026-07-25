@@ -18,10 +18,12 @@ char *p = &c;
 
 Three addresses are involved in those two lines, but only two variables exist.
 Name the two variables, and say what each one holds.
+- c hold 'A' and p hold address of c
 
 ### 2.
 Why does it matter that `p` has its own address? What does that fact make
 possible later in the section?
+- p have it own address to store value of the other variable
 
 ---
 
@@ -33,6 +35,7 @@ char *s = "hello";
 ```
 
 True or false, and explain: "`s` contains the text hello."
+- false, it point at 'h' but helloe doesnt sit in s address.
 
 ### 4.
 When `printf("%s", s)` runs, what does printf actually receive, and how does it
@@ -47,16 +50,18 @@ Read this aloud in words, working outward from the name:
 ```c
 char *words[3];
 ```
+- three char size box in a row, each box can hold an address.
 
 ### 6.
 Fill in the types:
 
 | Expression | Type |
 |---|---|
-| `words` | ? |
-| `words[1]` | ? |
-| `*words[1]` | ? |
-| `words[1][2]` | ? |
+| `words` | ? |         words
+| `words[1]` | ? |      is an array of 1
+| `*words[1]` | ? |     pointers
+| `words[1][2]` | ? |   to char
+"words is an array of 3 pointers to char."
 
 ### 7.
 The lesson says the array is contiguous but the strings are scattered. Which of
@@ -78,6 +83,7 @@ words[1] = temp;
 ```
 
 How many bytes of text does this copy? Explain your number.
+- 2 bytes , first is [0] second is [1]
 
 ### 9.
 Compare the two swap strategies. For an array of lines averaging 80 characters,
