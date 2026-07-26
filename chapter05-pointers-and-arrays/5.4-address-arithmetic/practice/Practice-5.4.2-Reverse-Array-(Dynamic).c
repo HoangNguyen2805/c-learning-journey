@@ -43,6 +43,6 @@ int main() {
 
 void reverseString(char *arr){
     int startPointer = arr[0];
-    int endpointer = arr[]
+    int endpointer;
 
 }
