@@ -35,7 +35,7 @@ int main(){
     // 3. call in the function to calculate
     calFib(arr, n);
 
-    // 4. print out the FIB
+    // 4. print out the Fib
     printf("Result = { ");
     for(int i = 0; i < n; i++){
         printf("%d, ", arr[i]);
