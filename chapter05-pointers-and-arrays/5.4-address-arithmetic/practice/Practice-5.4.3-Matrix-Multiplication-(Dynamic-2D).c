@@ -31,6 +31,9 @@ Calculate C[0][1]:
 (1×8) + (2×10) + (3×12) = 8 + 20 + 36 = 64 ✓
 
 KEY POINT:
+The Rule:
+Matrix A (m × n) can multiply Matrix B (p × q) ONLY IF:
+n == p
 Number of COLUMNS in A must equal Number of ROWS in B
 Otherwise multiplication is impossible!
 */
@@ -102,3 +105,21 @@ main()
   |
   +-- Done!
 */
+#include <stdio.h>
+
+int main(){
+
+  /* 
+  Step 1: Collect user input to generate matrix size, 
+  collect element in the matrix,
+  also double check the rule n == p in oder to eligible to do matrix multiplication.
+  */
+  printf("Welcome to Matrix Multiplication.\n");
+  printf("Note: In order for Matrix A (m * n) to be able to multiply to Matrix B (p * q), it require n = p");
+  int rows_m, cols_n, rows_p, cols_q;
+
+  printf("PLease Enter a ");
+
+  return 0;
+}
+
