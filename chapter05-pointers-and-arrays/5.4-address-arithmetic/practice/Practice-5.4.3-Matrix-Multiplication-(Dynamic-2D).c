@@ -106,6 +106,7 @@ main()
   +-- Done!
 */
 #include <stdio.h>
+#include <stdlib.h>
 
 void multiplyMatrices(int **A, int **B, int **C, int rows_m, int rows_p, int cols_n, int cols_q);
 
@@ -117,7 +118,7 @@ int main(){
   also double check the rule n == p in oder to eligible to do matrix multiplication.
   */
   printf("Welcome to Matrix Multiplication.\n");
-  printf("Note: In order for Matrix A (m * n) to be able to multiply to Matrix B (p * q), it require n = p");
+  printf("Note: In order for Matrix A (m * n) to be able to multiply to Matrix B (p * q), it require n = p\n");
   int rows_m, cols_n, rows_p, cols_q;
 
   printf("PLease Enter the amount of rows (m) for Matrix A : ");
