@@ -155,7 +155,7 @@ int main(){
             printf("Invalid choice, try again!!!\n");
         }
 
-    } while (i != 4);
+    } while (choice != 4);
 
     
     return 0;
