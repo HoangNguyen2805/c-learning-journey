@@ -1,5 +1,5 @@
 /*
-Practice 5.5.3 — my_strcmp (Pointer Comparison)
+Practice 5.5.3 — my_strcmp (Pointer Comparison) - String-Palindrome-Check
 
 PROBLEM:
 Implement your own version of strcmp() using pointer arithmetic.
