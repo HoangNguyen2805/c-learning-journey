@@ -1,12 +1,12 @@
 /*
-Practice 5.5.1 — Custom String Functions
-Implement strlen, strcpy, and strcmp from scratch using pointer arithmetic (no built-in string functions). Test them with user input strings.
+Practice 5.5.0 — Custom String Functions
+Implement strlen, strcpy, strcmp, strchr and strncpy from scratch using pointer arithmetic (no built-in string functions). Test them with user input strings.
 */
 /*
 CUSTOM STRING FUNCTIONS (Using Pointer Arithmetic)
 
 Why implement these?
-- Understand how standard library functions work (strlen, strcpy, strcmp)
+- Understand how standard library functions work (strlen, strcpy, strcmp, strchr, strncpy)
 - Master pointer arithmetic with strings
 - Learn null terminator navigation
 - No built-in functions allowed!
@@ -27,32 +27,50 @@ FUNCTION 3: strcmp(char *s1, char *s2)
 - Return negative if s1 < s2
 - Return positive if s1 > s2
 
+FUNCTION 4: strchr(char *s, char c)
+- Find first occurrence of character c in string s
+- Return pointer to that character if found
+- Return NULL if not found
+
+FUNCTION 5: strncpy(char *dest, char *src, int n)
+- Copy first n characters from src to dest
+- Does NOT add null terminator (caller must do this)
+- Safer than strcpy for fixed-size buffers
+
 KEY INSIGHT:
 All use pointer arithmetic to walk through strings until '\0'
 No array indexing needed!
 */
 /*
-Inoder to use this function 
+IMPORTANT NOTES:
+
+In order to use these functions:
 - strlen()
 - strcpy()
 - strcmp()
-We have to declare the new header file which is 
-    #include <stdlib>
-But in this exercise assume that we NOT using `#include <stdlib>`, and 
-our job is to write a function that do same job as 3 function above.
+- strchr()
+- strncpy()
 
-Notice that the function is to manipulate string in form of array not pointer.
-    String in form of array:
-    ```c This is possible to manipulate
-    char amessage[] = "now is the time";  // array of chars
-    ```
+We would normally include <string.h> header file.
+But in this exercise, we are NOT using any built-in headers.
+Our job is to write our own versions of these 5 functions from scratch.
 
-    String in form of pointer;
-    ```c This is NOT possible to manipulate
-    char amessage[] = "now is the time";  // array of chars
-    ```
+STRING TYPES in C:
+
+1. String Array (mutable):
+   char message[] = "hello world";  // Can modify characters
+   message[0] = 'H';  // OK - changes 'h' to 'H'
+
+2. String Pointer (read-only):
+   char *message = "hello world";   // Points to literal (cannot modify)
+   message[0] = 'H';  // ERROR - read-only memory
+
+KEY: We use POINTERS to walk through strings using pointer arithmetic.
+     No array indexing needed!
 */
-/*PSEUDOCODE
+/*
+PSEUDOCODE:
+
 strlen(char *s):
   1. Create counter = 0
   2. Loop: while *s != '\0'
@@ -68,14 +86,29 @@ strcpy(char *dest, char *src):
   3. Return dest
 
 strcmp(char *s1, char *s2):
-  1. Loop: while *s1 != '\0' AND *s2 != '\0'
-    - If *s1 != *s2:
-      Return (*s1 - *s2) (positive or negative)
+  1. Loop: while *s1 == *s2
+    - If *s1 == '\0' (end of string):
+      Return 0 (strings are equal)
     - Move both forward (s1++, s2++)
-  2. If loop ends equal:
-    Return 0
+  2. Return (*s1 - *s2) (character difference)
+
+strchr(char *s, char c):
+  1. Loop: while *s != '\0'
+    - If *s == c (character found):
+      Return s (pointer to character)
+    - Move forward (s++)
+  2. Return NULL (character not found)
+
+strncpy(char *dest, char *src, int n):
+  1. Loop: while n > 0
+    - *dest = *src (copy character)
+    - Move both forward (dest++, src++)
+    - Decrement counter (n--)
+  2. Done (caller must add '\0' if needed)
 */
-/*FLOWCHART
+/*
+FLOWCHART:
+
 strlen(s):
   count = 0
   |
@@ -105,17 +138,43 @@ strcpy(dest, src):
 
 strcmp(s1, s2):
   |
-  +-- WHILE (*s1 != '\0' AND *s2 != '\0')
+  +-- WHILE (*s1 == *s2)
   |       |
-  |       +-- IF *s1 != *s2
-  |       |     Return (*s1 - *s2)
+  |       +-- IF *s1 == '\0'
+  |       |     Return 0 (equal)
   |       |
   |       +-- s1++, s2++
   |       |
   |       +-- Check condition again
   |
-  +-- IF we exited loop:
-  |     Return 0 (strings are equal)
+  +-- Return (*s1 - *s2) (difference)
+
+strchr(s, c):
+  |
+  +-- WHILE (*s != '\0')
+  |       |
+  |       +-- IF *s == c
+  |       |     Return s (pointer found)
+  |       |
+  |       +-- s++
+  |       |
+  |       +-- Check condition again
+  |
+  +-- Return NULL (not found)
+
+strncpy(dest, src, n):
+  |
+  +-- WHILE (n > 0)
+  |       |
+  |       +-- *dest = *src
+  |       |
+  |       +-- dest++, src++
+  |       |
+  |       +-- n--
+  |       |
+  |       +-- Check condition again
+  |
+  +-- Return
 */
 #include <stdio.h>
 
