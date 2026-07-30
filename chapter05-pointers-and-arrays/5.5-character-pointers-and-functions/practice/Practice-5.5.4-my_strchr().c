@@ -80,9 +80,10 @@ using for loop or recursion but for loop is easier.
 char *my_strchr(char *str, char s){
     while(*str != '\0'){ // while looping through string before reaching NULL
         if(*str++ == '\0'){ // mover pointer to the right untill NULL
-            return str; // If reach NULL = not found Not found
+            return NULL; // If reach NULL = not found Not found
         }
-        str++;
-        return NULL; // else if reach s before NULL, then we found it.
     }
+    // This need to be out side the loop
+    return str; // else if reach s before NULL, then we found it.
+    
 }

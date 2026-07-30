@@ -181,6 +181,8 @@ strncpy(dest, src, n):
 int my_strlen(char *arr);
 void my_strcpy(char *A, char *B);
 int my_strcmp(char *A, char *B);
+char *my_strchr(char *str, char l);
+void my_strncpy(char *A, char *B, int n);
 
 int main(){
 
@@ -192,7 +194,9 @@ int main(){
         printf("1. Test strlen - String Length\n");
         printf("2. Test strcpy -  String Copy\n");
         printf("3. Test strcmp - String Compare\n");
-        printf("4. Exit\n");
+        printf("4. Test strchr  - Character Search\n");
+        printf("5. Test strncpy - Bounded Copy\n");
+        printf("6. Exit\n");
         printf("Choose an option: ");
         scanf(" %d", &choice);
 
@@ -200,6 +204,9 @@ int main(){
         char clonearr[100];
         char arrA[100];
         char arrB[100];
+        char n;
+        char dest[100];
+        int unit;
         
         // PROCESS CHOICE
         switch(choice){
@@ -223,26 +230,11 @@ int main(){
               scanf(" %[^\n]", arrB);
               
               printf("\nComparing 2 Strings ...\n");
-              int result = my_strcmp(arrA, arrB);
+              int result3 = my_strcmp(arrA, arrB);
 
-              /*
-              strcmp() DOESNT comapre string length 
-              - It convert both character into number then compare each character by it number value.
-              The value go up From the begging of the alphabet to the end of alphabet.
-              Ex:
-              a is the smallest when conver to number
-              z is the biigest when converting to number.
-
-              So sometime we might see:
-                          "xwqxqxqedq" vs "qxqwqqxqcqecqeceqc"
-
-                          First chars: 'x' vs 'q'ç
-                        120 vs 113
-                        120 > 113 → First string is BIGGER ✓
-              */
-              if(result == 0){
+              if(result3 == 0){
                 printf("First string and Second string are EQUAL!!!\n");
-              } else if(result > 0){ // result = positive , A is BIGGER
+              } else if(result3 > 0){ // result = positive , A is BIGGER
                 printf("First string are BIGGER than Second string.\n");
               } else {               // result = negative , A is SMALLER
                 printf("First string are SMALLER than Second string.\n");
@@ -250,6 +242,41 @@ int main(){
               break;
 
             case 4:
+              printf(" PLease input your string: ");
+              scanf(" %[^\n]", arr);
+              printf("And you looking for letter: ");
+              scanf(" %c", &n);
+
+              //DISPLACE Result
+              char *result4 = my_strchr(arr, n);
+              /*
+              To print the location of index that the found letter at , notice that
+              arr = pointer to arr[0] (first element)
+              result = pointer to arr[2] (where 'l' is found)
+              so
+              letter location's index = result - arr
+              */
+              if(result4 != NULL){
+                  printf("Letter %c first found in %ldth index of the string.\n", *result4, result4 - arr);
+              }else{
+                  printf("Not found!!!\n");
+              }
+              break;
+
+            case 5:
+              printf("Enter your string: arr = ");
+              scanf(" %[^\n]", arr);
+              printf("How far from the begin you want to copy ? - ");
+              scanf(" %d", &unit);
+              my_strncpy(dest, arr, unit);
+              // when you copy, this never reach the end so dest missing `\0` NULL terminator
+              // ADD NULL to dest before displace so cmpiler know whenthe string end.
+              dest[unit] = '\0';
+              printf("Copying!!!\n");
+              printf("Result: dest = %s\n", dest);
+              break;
+
+            case 6:
               printf("Existing...\n");
               break;
 
@@ -257,7 +284,7 @@ int main(){
             printf("Invalid choice, try again!!!\n");
         }
 
-    } while (choice != 4);
+    } while (choice != 6);
 
     
     return 0;
@@ -346,3 +373,55 @@ int my_strcmp(char *A, char *B){
 } // The if stament will increment  the location to the right
   // As long as A == B still, 
   // if see the diffrent if statement will end and return the different
+
+  /*
+              strcmp() DOESNT comapre string length 
+              - It convert both character into number then compare each character by it number value.
+              The value go up From the begging of the alphabet to the end of alphabet.
+              Ex:
+              a is the smallest when conver to number
+              z is the bigest when converting to number.
+
+              So sometime we might see:
+                          "xwqxqxqedq" vs "qxqwqqxqcqecqeceqc"
+
+                          First chars: 'x' vs 'q'ç
+                        120 vs 113
+                        120 > 113 → First string is BIGGER ✓
+              */
+
+/*
+Function 4: strchr() - Letter first occurent - What , where is the letter  x first occurrent in the string.
+Within the string , if i want to look for the first letter x ever occurent in the string and what to knwo where it located,
+My function have to:
+1. Move string from left to right one by one to check.
+2. Check if letter , that user looking for exist in the string or Not.
+3. If it exist then check where it located.
+Function will return the letter and it location so it char array function
+*/
+char *my_strchr(char *str, char l){
+  while(*str != l){ // while each element of string is not = letter we looking for yet
+    if(*str++ == '\0'){ // If search from left ot right reach NULL mean not found
+      return NULL; // not found
+    }
+    // else mean founded by move right
+  } 
+  // This need to be out side the loop
+  return str; // when found it, return string where = l, str now hold the index of l address.
+ 
+}
+
+/*
+Function 5 - strncpy() - Bounded Copy - Given a string from user input, copy that string partially from begining to where it set.
+Function will manipulate the value of the pointer so it doesnt return any thing. So we need 
+1. We declare a bufer and the size of buffer. Buffer is an empty memory that have the size at least more than what need to store.
+2. That Buffer is our destination. And before storing just what we need to that buffer, the original user input was store in arr.
+3. Our job is to copy only just what we need from arr to dest, not fully.
+Since we only need to move from pointer to pointer, we dont return anything, just manipulating function so need void function.
+*/
+void my_strncpy(char *A, char *B, int n){
+  while(n-- > 0){ // n will count down, n represent how far from begin the copy will go.
+    *A++ = *B++; // each n loop the value of B ( B = arr ) will copy to A ( A = dest )
+    // It'll go on until run out of n , mean go on until what user want n to be
+  }
+}
