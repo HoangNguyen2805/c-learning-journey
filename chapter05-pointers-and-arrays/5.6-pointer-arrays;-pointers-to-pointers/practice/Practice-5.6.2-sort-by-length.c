@@ -96,6 +96,9 @@ int main()
 To sort the length of the string, short first, long later, we need 
 - A function sorting the string length
 
+To help with sorting the length of the string, we need strlen from <string.h> , or we can make it our own my_strlen
+- A function to count how many element is in the array
+
 If string length is equal to each other then, sort those string by order of alphabet,
 a have value of number that is smaller than z, a is smallest in value and the value go up a long the alphabet. So we need
 - A function sorting by comparing character by character.
@@ -106,10 +109,35 @@ To move pointer we need
 
 Basically string length function and alphabet function will call swap when it done sorting. swap call within the 2 function.
 
-main ──> sort_alpha ──> swap
-     └─> sort_length ──> swap
+main ─┬─> sort_alpha ─┬─> my_strcmp     (inner loop, every comparison)
+      │               └─> swap          (outer loop, once per pass)
+      │
+      └─> sort_length ┬─> my_strlen     (inner loop, twice per comparison)
+                      ├─> my_strcmp     (inner loop, ties only)
+                      └─> swap          (outer loop, once per pass)
 
 */
+
+int my_strlen(char *arr){ // Or declare strlen from <string.h> 
+    /* arr[2], where               find the differerce in size of element each arr[i]
+        arr[0] = "banana";
+        arr[1] = "apple";
+        arr[2] = "cherry";
+        
+    */
+}
+
+void swap(char *v[], int i, int j){ // v is an array of pointers; each slot holds the address of a string
+    // swap exchanges the values of slot i to slot j
+    char *temp = v[i];   /* copy slot i's value into temp */
+    v[i] = v[j];         /* copy slot j's value into slot i */
+    v[j] = temp;         /* copy temp's value into slot j */
+    /* Given arr[i] = "apple" and arr[j] = "banana". Called swap(v[], i, j);
+        1. swap set temp = "apple".
+        2. swap set arr[i] = "banana".
+        3. swap set arr[j] = temp (which set arr[j] = "apple").
+    */
+}
 
 
 
