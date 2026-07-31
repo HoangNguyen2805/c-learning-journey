@@ -43,7 +43,8 @@ Two tests worth running:
   2. If you have valgrind:  valgrind ./sorter < file.txt
      Every malloc needs its free.
 */
-
+/*
+/*Given:
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -56,3 +57,4 @@ int main()
 
     return 0;
 }
+*/

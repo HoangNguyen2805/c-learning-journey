@@ -35,11 +35,16 @@ char *s = "hello";
 ```
 
 True or false, and explain: "`s` contains the text hello."
-- false, it point at 'h' but helloe doesnt sit in s address.
+- True, it point at the entire string hello, s countain hello, displace s will displace the entire string hello.
 
 ### 4.
 When `printf("%s", s)` runs, what does printf actually receive, and how does it
 know when to stop printing?
+Output
+```c
+    hello
+```
+stop when reach `\0` - NULL terminator , end of string
 
 ---
 
@@ -50,7 +55,7 @@ Read this aloud in words, working outward from the name:
 ```c
 char *words[3];
 ```
-- three char size box in a row, each box can hold an address.
+- three char size box in a row, each box can hold an chart or string value.
 
 ### 6.
 Fill in the types:
@@ -67,8 +72,8 @@ Fill in the types:
 The lesson says the array is contiguous but the strings are scattered. Which of
 these are guaranteed to be next to each other in memory, and which are not?
 
-- `&words[0]` and `&words[1]`
-- `words[0]` and `words[1]`
+- `&words[0]` and `&words[1]` - both are element of one array
+- `words[0]` and `words[1]` - both are address of randon string.
 
 ---
 
@@ -83,7 +88,8 @@ words[1] = temp;
 ```
 
 How many bytes of text does this copy? Explain your number.
-- 2 bytes , first is [0] second is [1]
+- Zero bytes of text. It copies three pointer values — 24 bytes total on a 64-bit
+machine — and touches no character data at all.
 
 ### 9.
 Compare the two swap strategies. For an array of lines averaging 80 characters,
@@ -97,9 +103,20 @@ temp = v[i];  v[i] = v[j];  v[j] = temp;
 strcpy(temp, v[i]);  strcpy(v[i], v[j]);  strcpy(v[j], temp);
 ```
 
+-Strategy A copies 8 bytes three times: 24 bytes. Strategy B copies about 80
+bytes three times: roughly 240 bytes, plus the loop overhead inside each
+`strcpy`. Order of magnitude worse, and it gets worse still as lines get longer,
+while A stays fixed.
+
 ### 10.
 Strategy B above has a second problem beyond speed. What is it? Think about what
 `v[i]` has to be for `strcpy(v[i], v[j])` to be safe.
+
+- `strcpy(v[i], v[j])` writes into whatever `v[i]` points at. For that to be safe,
+every allocation must be big enough to hold the longest string in the array — so
+you are forced into fixed-size storage, wasting space on short lines and
+breaking on long ones. That is the "complicated storage management" K&R
+mentions.
 
 ---
 
@@ -113,6 +130,9 @@ declaration:
 void f(char *v[])
 void f(char **v)
 ```
+- An array parameter is always converted to a pointer to its first element. The
+first element of `char *v[]` is a `char *`. A pointer to a `char *` is written
+`char **`. So the conversion produces exactly the second declaration.
 
 ### 12.
 ```c
@@ -122,13 +142,16 @@ char **wordp = &word;
 
 Give the type and value of each:
 
-- `wordp`
-- `*wordp`
-- `**wordp`
+- `wordp` is `char **`, holding the address of the variable `word`.
+- `*wordp` is `char*`, represent that address of "hello"
+- `**wordp` is `char`, the value 'h'
 
 ### 13.
 If `char **` is "pointer to pointer to char", what would `char ***` be, and when
 might you actually need one?
+- `char ***` is a pointer to a pointer to a pointer to char. You would need one to
+pass a `char **` to a function that must modify it — for example, a function
+that grows an array of strings and has to hand back a new base address.
 
 ---
 
@@ -137,6 +160,10 @@ might you actually need one?
 ### 14.
 Unpack `*lineptr++` into its steps. Which operator binds tighter, is it prefix
 or postfix, and what value reaches `printf`?
+- `++` binds tighter than `*` and it is postfix. So: take the current value of
+`lineptr`; dereference that value to get the `char *` it points at; hand that to
+printf; then advance `lineptr` one element forward. printf receives the pointer
+as it was *before* the increment.
 
 ### 15.
 ```c
@@ -149,6 +176,9 @@ void writelines(char *lineptr[], int nlines)
 
 This function moves `lineptr` forward on every pass. Why does the caller's array
 survive intact?
+- `lineptr` is a parameter, which means the function received a copy of the
+caller's pointer. Incrementing the copy does not touch the original array or the
+caller's variable.
 
 ### 16.
 Rewrite the function above using an index instead of pointer arithmetic. Which

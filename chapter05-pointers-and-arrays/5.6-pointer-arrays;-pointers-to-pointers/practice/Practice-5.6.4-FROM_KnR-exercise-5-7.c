@@ -61,7 +61,7 @@ TIMING RESULTS (fill this in):
   array version:
   observation:
 */
-
+/*Given:
 #include <stdio.h>
 #include <string.h>
 
@@ -74,3 +74,4 @@ int main()
 
     return 0;
 }
+*/

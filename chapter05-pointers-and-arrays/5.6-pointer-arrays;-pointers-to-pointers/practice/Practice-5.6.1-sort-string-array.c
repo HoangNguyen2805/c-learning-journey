@@ -107,9 +107,9 @@ int main()
     // outer loop decided what position we fill the founded element in , fill in from index 0 to 7.
     for(int i = 0; i < 7; i++){
       //inner loop to find the smalles so outer loop can fill in
-      int smallest = i;
+      int smallest = i; // i is ASSUME to be the smallest and If function below prove i srong be replace it with the smallest on the first loop
       for(int j = i + 1; j < 7; j++){
-        if(strcmp(words[j], words[smallest]) < 0){   // when strcmp run, first leter of both words[j] and words[smalles] will compare
+        if(strcmp(words[j], words[smallest]) < 0){  // when strcmp run, first leter of both words[j] and words[smalles] will compare
           smallest = j;                             //strcmp(A, B) returns:
                                                     //1. negative if A comes before B alphabetically
                                                     //2. positive if A comes after B alphabetically
@@ -119,7 +119,7 @@ int main()
                                                     // first argument is what you're checking against the second.
         }
       }
-      // fiilinf in
+      // filling in
       swap(words, i, smallest);
     } // sorting complete
 
