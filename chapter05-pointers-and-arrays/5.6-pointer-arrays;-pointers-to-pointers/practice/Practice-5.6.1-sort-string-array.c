@@ -85,8 +85,12 @@ int main() {
     int n = 5;
     
     /* call sort */
+    sort(words, n);
     
     /* print the sorted array */
+    for(int i = 0; i < n; i++){
+        printf("%s\n", words[i]);
+    }
     
     return 0;
 }
@@ -121,4 +125,34 @@ int my_strcmp(char *A, char *B) {
 
 void sort(char *v[], int n) {
     /* your code */
+    for(int i = 0; i < n-1; i++){
+        int smalless = i;
+        for(int j = i + 1; j < n; j++){
+            if((my_strcmp(v[j] , v[smalless])) < 0)
+            smalless = j;
+        }
+        swap(v, i, smalless);
+    }
 }
+/*
+nested for loop - a for loop inside a for loop
+the out side for loop - to go through each slot of the array ( v[0] , v[2] , v[3] , ... )
+    declare smalless variable is i assume i is smalles 
+    each loop if found anything smaller then replace that with i.
+the inner loop will call my_strcmp to find the smalless, if found the smaller ( return negative) then replace that smalless [i] with smaller [j], [j] now is the smalless.
+
+after update the smalless, smaless variable now hold the smalless and next loop wont found the same smalless as previous any more 
+because value of smalless variable have been updated by inner loop
+
+swapping belong to outter loop since update smalless is in puter loop each time.
+
+pesudocode
+```bash
+for each position i from 0 to n-1:
+    smallest = i
+    for each position j from i+1 to n-1:
+        if string at j comes before string at smallest:
+            smallest = j
+    swap position i and position smallest
+```
+*/
