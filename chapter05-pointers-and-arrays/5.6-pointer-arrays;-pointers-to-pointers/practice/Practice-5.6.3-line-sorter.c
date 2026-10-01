@@ -15,18 +15,48 @@ Go.
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #define MAXLEN   1000 // max length of one line
 #define MAXLINES 5000 // max number of lines the array can hold
 
-int readlines(char *lineptr[], int maxlines);
+int readlines(char *lineptr[], int maxlines); // ACTION 1
+void qsort_str(char *lineptr[], int left, int right); // ACTION 2
+void writelines(char *lineptr[], int countline); // ACTION 3
+
 void my_strcpy(char *destination, char *source);
 int my_strlen(char *str);
+void my_swap(char *v[], int i , int j);
+int my_strcmp(char *A, char *B);
 
 int main() {
+    /*
+    The program does 3 things:
+
+    1. READ — Take lines typed in (or from a file)
+    2. SORT — Put them in alphabetical order
+    3. PRINT — Show the sorted lines
+    */
 
     char *lineptr[MAXLINES]; // part of ACTION 1 - STEP 1
 
+    // Step 1: READ lines
+    // int countline = return nline from ACTION 1 , it store the amount of line ACTION 1 have readed.
+    int countline = readlines(lineptr, MAXLINES);
+
+    // Step 2: SORT lines
+    // the left most is arr[0] and the right most is arr[countline - 1]
+    /*
+    Why countline - 1 ?
+    Example:
+    countline = 5 (5 lines read)
+    Lines are at indices 0, 1, 2, 3, 4
+    qsort_str(lineptr, 0, 5-1) = qsort_str(lineptr, 0, 4) ✓
+    */
+    qsort_str(lineptr, 0, countline - 1);
+
+    // Step 3: PRINT lines
+    writelines(lineptr, countline);
 
     return 0;
 }
@@ -171,12 +201,122 @@ qsort_str(lineptr, left, right):
              Same process: partition, then recurse on its sides.
 */
 void qsort_str(char *lineptr[], int left, int right){
-    if(left >= right){ // left and right is indices integers 
-        return; // we sort from left to right , if left is at the position that = to right mean they at the end, so nothing to sort any more
+    // left is the beginning of the array
+    // right is the ending of the array
+
+    // Step 1
+    // Base case - stop recurtion when there is no more eleemnt to compare
+    if(left >= right){ // If the position where left is is eual or bigger than right mean both left and
+        return;        //  right already at most right ( end of the array) so no more element to compare.
     }
 
+    // Step 2
+    // The pivot is the right most , poiter array element.
     char *pivot = lineptr[right];
-    int i = left - 1;
-    int j = right;
 
+    // Step 3
+    // Where i should stand ?
+    // - i should start at index before 0 because first round is checking we dont know i swap with what yet
+    // i is integer, i is an index represent the position of element from left
+    int i = left - 1;
+
+    // Step 4
+    // We use for loop because we know the exact range of the array. [left to right - 1] - why right -1 ? Because right is the pivot, we dont compare the pivot so right - 1 is the last element.
+    // This is where we give meaning to j , j suppose to be at first element and we compare array[j] with array[pivot]. so j is increase as long as NOT reach Right ( j < right)
+    for(int j = left; j < right; j++){
+        /* 
+        If arr[j] is SMALLER than arr[pivot]{
+            // we swapping it to the left
+            i++;
+            call swap to swap i with j
+        }
+        No need if statement for BIGGER because j will keep j++
+        */
+        if(my_strcmp(lineptr[j], pivot) < 0){
+            i++;
+            my_swap(lineptr, i , j);
+        }
+    }
+
+    // Step 5
+    /* PLace pivot in final possition
+    After the loop end compare complete, last step we need to place pivot in the middle where after all the small element but before all the big element
+    j is at the most right after comparison, so i is at the most right of the smaller one
+    so i + 1 is where pivot should be So:
+
+    1. Swap lineptr[i+1] with lineptr[right]
+    2. Set p = i + 1
+
+    p is our new position of this current recursion
+    */
+    my_swap(lineptr, i + 1, right); // In step 2 we set char *pivot = lineptr[right];
+    int p = i + 1;
+
+    // After put the pivot in the correct position we need to call the function again (recursion) so it keep sorting the Bigger and Smaller element.
+    // Step 6 - recursion left side (Smaller)
+    // NEW left = p - 1
+    qsort_str(lineptr, left, p-1);
+
+    // Step 7 - recursion right side (Bigger)
+    // NEW right = p + 1
+    qsort_str(lineptr, p+1, right);
+}
+
+// Swap function
+void my_swap(char *v[], int i , int j){
+    char *temp = v[i];
+    v[i] = v[j];
+    v[j] = temp;
+}
+
+/* String compare function (strcmp)
+```
+my_strcmp(A, B):
+    while A and B are equal and A is not null terminator:
+        advance both pointers
+    return A - B
+```
+When you do *A - *B, you're subtracting the ASCII values of the characters at that position.
+
+Example:
+
+'a' has ASCII 97
+'b' has ASCII 98
+'b' - 'a' = 1 (positive, so 'b' comes after 'a')
+
+If both strings are identical, both hit \0 at the same time, so '\0' - '\0' = 0 (equal).
+
+That's how you know which string comes first alphabetically.
+*/
+int my_strcmp(char *A, char *B){
+    while(*A == *B && *A != '\0'){ // if A have different letter with B or B end before A or A end before B
+        A++;
+        B++;
+    }
+    return *A - *B;                // it should return the different between A and B
+/*
+If A is longer than B
+A is ASDFGH
+B is ASDFGHJKL
+return 0 - JKL = negative
+
+If A is shorter than B
+A is ASDFGHJKL
+B is ASDFGH
+return JKL - 0 = positive
+
+If A and B are the same
+A is ASDFGH
+B is ASDFGH
+return 0 - 0 = 0
+*/
+}
+
+/* ACTION 3 is to print the output in alphabetiacal order
+after sorting , lineptr store all of the element in alphabetical order all we need is the for loop to print them out
+*/
+void writelines(char *lineptr[], int countline){
+    for(int i = 0; i < countline; i++){
+        printf("%s\n", lineptr[i]);
+    }
 }
