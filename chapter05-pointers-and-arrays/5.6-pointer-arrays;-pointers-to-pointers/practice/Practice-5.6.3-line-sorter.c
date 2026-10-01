@@ -1,206 +1,182 @@
 /*
-Practice 5.6.3 — The Line Sorter
+Write a program that reads lines from stdin, sorts them alphabetically, prints them.
 
-Build the program K&R describes: read lines from standard input, sort them
-alphabetically, print them. A stripped-down version of the UNIX sort.
+Use three functions: readlines(), qsort_str(), writelines().
 
-Run it as:   ./sorter < somefile.txt
-Or type lines and press Ctrl-D on a blank line when done.
+readlines() reads from stdin until EOF, malloc's storage for each line, stores addresses in an array, returns count.
 
-Structure it as K&R does — three functions plus main:
-    readlines(lineptr, MAXLINES)    returns count, or -1 if too many
-    qsort_str(lineptr, 0, nlines-1)
-    writelines(lineptr, nlines)
+qsort_str() quicksorts the pointer array alphabetically.
 
-Constraints:
-- Each line gets its own allocation, sized to that line
-- free() everything before exit
-- Handle the too-many-lines case rather than overrunning the array
-- Strip the trailing newline before storing
+writelines() prints each line.
 
-Hint, not a solution:
-  Use fgets to read into a temporary buffer, then malloc exactly what the line
-  needs and strcpy into it. Work out the +1 and be sure you know why it is
-  there.
+Free all malloc'd memory before exit.
 
-  The classic failure in this program is storing the address of the temporary
-  buffer instead of the address of fresh storage. If your output is N copies of
-  the last line, that is exactly what happened — and it is worth causing
-  deliberately once so you recognize it forever.
-
-  For the sort, use the quicksort from Chapter 4 with strcmp as the comparison.
-  The algorithm needs no changes beyond the declarations and that one line.
-
-DSA concept: indirect sorting with dynamic storage
-Approach: array of pointers into individually allocated lines, quicksort
-Time: O(n log n) comparisons average; each comparison costs O(L) for line
-      length L, so O(L n log n) overall
-Space: O(total input size) for the text plus O(n) for the pointer array
-
-Two tests worth running:
-  1. Sort a file, then sort the sorted output. The second run must produce
-     identical output. If it does not, your comparison is inconsistent.
-  2. If you have valgrind:  valgrind ./sorter < file.txt
-     Every malloc needs its free.
-*/
-/*
-/*Given:
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-
-#define MAXLINES 5000
-#define MAXLEN   1000
-
-int main()
-{
-
-    return 0;
-}
-*/
-
-/*
-1. Read each line with fgets into a temporary buffer
-2. Strip the trailing newline get rid of '\0' for correct measurement.
-3. Measure the line, malloc storage that size, copy the line in,
-   store the address in lineptr[]
-4. Sort the pointer array alphabetically (the sort calls swap internally)
-5. Print each line by following its pointer
+Go.
 */
 
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 
-#define MAXLINES 5000  /* how many lines the array can hold */
-#define MAXLEN   1000  /* how many characters one line can be */
+#define MAXLEN   1000 // max length of one line
+#define MAXLINES 5000 // max number of lines the array can hold
 
-void writelines(char *lineptr[], int nlines);
 int readlines(char *lineptr[], int maxlines);
+void my_strcpy(char *destination, char *source);
+int my_strlen(char *str);
 
-int main()
-{
-    
-    char *lineptr[MAXLINES];
-    int nlines = readlines(lineptr, MAXLINES);
-    writelines(lineptr, nlines);
+int main() {
 
-    /* free everything before exit */
-    for (int i = 0; i < nlines; i++)
-        free(lineptr[i]);
+    char *lineptr[MAXLINES]; // part of ACTION 1 - STEP 1
+
 
     return 0;
 }
 
-void writelines(char *lineptr[], int nlines) // to printout inorder
-{
-    for (int i = 0; i < nlines; i++)
-        printf("%s\n", lineptr[i]);
-}
-
+/*  ACTION 1 is create function that read line and in the readline function we use while loop to read while not NULL yet , while loop have 4 step
+readlines(lineptr, maxlines):
+    Parameters:
+        lineptr = array of pointers (declared in main as char *lineptr[MAXLINES])
+        maxlines = max size of the array (to prevent overflow)
+    
+    Variables:
+        nlines = counter, starts at 0
+        line[MAXLEN] = temp buffer for fgets
+    
+    while (fgets reads from stdin and is not NULL):
+        Step 1: measure line length with strlen
+        Step 2: strip the newline (replace \n with \0)
+        Step 3: malloc storage for (length + 1) bytes
+        Step 4: strcpy into storage, store address in lineptr[nlines++]
+    
+    return nlines
+*/
 int readlines(char *lineptr[], int maxlines){
-    char line[MAXLEN]; // is a temporary buffer store one string at a time to process and filter.
-    int nlines = 0;
-    //there is no "Enter your string here: [user input]"
-    // Because this one design to be a filter — it reads stdin until it ends.
-    // instead of stdin, insert the hile.txt there ./sorter < input.txt
-    while (fgets(line, MAXLEN, stdin) != NULL){
-        /* 1. measure the line */ 
-            /* For better accuracy counting character of string we need to get rid of '\n' , '\n' count but '\0' is not countin strlen
-            replace \n with \0
-            before:  | c | a | t | \n | \0 |
-            after:   | c | a | t | \0 | \0 |   (moved the terminator over the newline)
-            to reach then end to get rid of \n then we need strlen - 1
-            */
-            int len = strlen(line); // len is holding the value of length size so it's an integer
-        /* 2. strip the trailing newline */
-            if(len > 0 && line[len-1] == '\n'){ // if size of line bigger than 0 and last index is \n, which it alway does because fgets automatic assign it everytime
-                line[len-1] = '\0';
-            }
-        /* 3. malloc storage that size */
-        char *storage = malloc(len + 1);  // + 1 is for '\0'
-        if (storage == NULL) {
-            printf("error: input too big to sort\n");
-            return -1; // due to > 0
-        }
-        /* 4. copy line into it, put the address in lineptr[nlines++] */
-        // copy line into storage using strcpy(destination, source)
-        strcpy(storage, line);           /* line is copied into malloc'd memory */
-        lineptr[nlines++] = storage;     /* save that address in the array */
+    
+    char line[MAXLEN]; // max length of one line is 1000
+    int nlines = 0; // counter how many line you have store
 
-        // while loop is just reading and storing, Exist the loop to sorting and swap.
+    while(fgets(line, MAXLEN , stdin) != NULL){
+        // Step 1
+        int len = my_strlen(line);
+
+        // Step 2
+        // Ex: "banana\n\0" , so \n come before \0, move aray one character backward
+        if (line[len - 1] == '\n'){
+            line[len - 1] = '\0';
+        }
+
+        // Step 3
+         char *storage = malloc(len + 1);
+
+         //part of malloc 
+         if (storage == NULL){
+            return -1;
+         }
+
+        // Step 4
+        my_strcpy(storage, line); // copy the string
+        lineptr[nlines++] = storage; // each time you store a string nlines increase as lineptr array chagne to next slot for next string.
+
     }
+
     return nlines;
 }
 
-
 /*
-PROGRAM FLOW: Line Sorter (No Sort Yet)
+my_strlen(str):
 
-INPUT:
-banana
-apple
-cherry
-[Ctrl-D]
+Declare a counter, start at 0
 
-EXECUTION:
+Loop while the character is not the null terminator:
+Increment the counter
+Move to the next character
 
-main():
-    1. Declare char *lineptr[5000]    <- empty array of 5000 pointers
-    2. Call readlines(lineptr, 5000)
-    
-readlines():
-    Iteration 1:
-        fgets reads: "banana\n"       <- from stdin
-        len = strlen = 7              <- includes \n
-        Strip: line[6] = '\0'         <- overwrites \n with \0
-        len is now 6                  <- but we already measured 7
-        malloc(7)                     <- 6 chars + 1 for \0
-        strcpy into storage
-        lineptr[0] = storage address  <- points to "banana"
-        nlines = 1
-    
-    Iteration 2:
-        fgets reads: "apple\n"
-        len = 6
-        Strip: line[5] = '\0'
-        malloc(6)
-        strcpy into storage
-        lineptr[1] = storage address  <- points to "apple"
-        nlines = 2
-    
-    Iteration 3:
-        fgets reads: "cherry\n"
-        len = 6
-        Strip: line[5] = '\0'
-        malloc(6)
-        strcpy into storage
-        lineptr[2] = storage address  <- points to "cherry"
-        nlines = 3
-    
-    Iteration 4:
-        fgets returns NULL             <- no more input
-        Loop exits
-    
-    return nlines = 3
+Return the counter
 
-main() continues:
-    3. nlines = 3
-    4. Call writelines(lineptr, 3)
+int my_strlen(char *str):
+    Declare a counter, start at 0
     
-writelines():
-    for i = 0 to 2:
-        printf("%s\n", lineptr[i])
-        Iteration 1: printf("%s\n", lineptr[0]) -> "banana"
-        Iteration 2: printf("%s\n", lineptr[1]) -> "apple"
-        Iteration 3: printf("%s\n", lineptr[2]) -> "cherry"
-
-main() continues:
-    5. Free loop: free(lineptr[0]), free(lineptr[1]), free(lineptr[2])
-    6. return 0
-
-OUTPUT:
-banana
-apple
-cherry
+    Loop while the character at str is not null terminator:
+        Increment the counter
+        Move str to the next character
+    
+    Return the counter
 */
+int my_strlen(char *str){
+    int counter = 0;
+    while(*str != '\0'){
+        str++;
+        counter++;
+    }
+    return counter;
+}
+
+/* Pseudocode for strcpy:
+my_strcpy(destination, source):
+    Loop while source character is not null terminator:
+        Copy source character to destination
+        Move both pointers forward
+    Copy the null terminator
+*/
+void my_strcpy(char *destination, char *source){
+    while (*source != '\0'){
+        *destination = *source;
+        source++;
+        destination++;
+    }
+    *destination = '\0';
+}
+
+/* ACTION 2 is to sort them line in alphabetical order using qsort_str() — the quicksort function.
+qsort_str(lineptr, left, right):
+    
+    STEP 1: Base case — when to stop recursing
+        if left >= right:
+            return
+        Why? If left >= right, there's 0 or 1 elements left. Already sorted.
+              No need to do anything. Stop this recursive call.
+    
+    STEP 2: Pick the pivot — the dividing point
+        pivot = lineptr[right]
+        Why? Choose the rightmost element as our dividing reference.
+              We'll organize everything relative to this pivot.
+    
+    STEP 3: Initialize the smaller boundary tracker
+        i = left - 1
+        Why? `i` marks where the smaller section ends.
+              Start at -1 (before the range) because nothing is smaller yet.
+    
+    STEP 4: Partition — organize smaller left, larger right
+        for j from left to right-1:
+            if lineptr[j] < pivot (alphabetically, use my_strcmp):
+                i++                              // expand smaller section 
+                swap lineptr[i] with lineptr[j] // put smaller element there 
+        Why? Scan every element except pivot. If smaller than pivot, move it left.
+             After loop, all smaller are left of i, all larger are right of i.
+    
+    STEP 5: Place pivot in final position
+        swap lineptr[i+1] with lineptr[right]
+        p = i + 1
+        Why? Pivot belongs between smaller (left) and larger (right).
+             Position p is now pivot's final, correct location.
+    
+    STEP 6: Recursively sort the LEFT side
+        qsort_str(lineptr, left, p-1)
+        Why? Left side [left to p-1] still unsorted. Call qsort_str on it.
+             The function will partition THAT range, then recurse on its sides.
+             (This is recursion — function calling itself)
+    
+    STEP 7: Recursively sort the RIGHT side
+        qsort_str(lineptr, p+1, right)
+        Why? Right side [p+1 to right] still unsorted. Call qsort_str on it.
+             Same process: partition, then recurse on its sides.
+*/
+void qsort_str(char *lineptr[], int left, int right){
+    if(left >= right){ // left and right is indices integers 
+        return; // we sort from left to right , if left is at the position that = to right mean they at the end, so nothing to sort any more
+    }
+
+    char *pivot = lineptr[right];
+    int i = left - 1;
+    int j = right;
+
+}
