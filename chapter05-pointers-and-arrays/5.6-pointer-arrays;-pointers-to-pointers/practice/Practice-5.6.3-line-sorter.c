@@ -43,6 +43,11 @@ int main() {
     // Step 1: READ lines
     // int countline = return nline from ACTION 1 , it store the amount of line ACTION 1 have readed.
     int countline = readlines(lineptr, MAXLINES);
+    // and if readlines(return -1) fail, main will get a return -1 , if main receive -1 it should printout why it got it.
+    if (countline == -1){
+        printf("Error: Too many lines\n");
+        return 1;
+    }
 
     // Step 2: SORT lines
     // the left most is arr[0] and the right most is arr[countline - 1]
@@ -58,6 +63,11 @@ int main() {
     // Step 3: PRINT lines
     writelines(lineptr, countline);
 
+    // DON'T forget to free() memories of malloc.
+    for(int i = 0; i < countline; i++){
+        free(lineptr[i]);
+    }
+    
     return 0;
 }
 
@@ -93,6 +103,17 @@ int readlines(char *lineptr[], int maxlines){
         if (line[len - 1] == '\n'){
             line[len - 1] = '\0';
         }
+
+        /*between step 2 and step 3
+        Step 2: clean up the line. Remove the \n so it's a proper string.
+        Step 3: get memory for that one line.
+        We have limited memory to store line, lineptr[MAXLINES] , so what if the amount of line is more than MAXLINES ?
+        In that case we don't have enough storage to store in lineptr's slot , it should return and error, and it should return before generate more memory by malloc.
+        */ 
+        if (nlines >= maxlines){
+            return -1;
+        }
+        // IF this readlines() function fail, it return -1 to masin, main need to do some thing with this -1 value other than nothing.
 
         // Step 3
          char *storage = malloc(len + 1);
