@@ -14,7 +14,7 @@ Constraint: Use nested loops, no shortcuts.
 DSA: Array traversal, nested iteration.
 Complexity: O(rows * 4) time, O(1) space.
 */
-
+/*
 #include <stdio.h>
 
 int main()
@@ -25,7 +25,8 @@ int main()
         {9, 10, 11, 12}
     };
 
-    /* Student writes code here */
+    // Student writes code here 
 
     return 0;
 }
+*/

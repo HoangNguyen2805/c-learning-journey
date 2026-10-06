@@ -53,7 +53,7 @@ int main()
     for (int j = 0; j < 4; j++) {
         int col_sum = 0;
         for (int i = 0; i < 3; i++) {
-            col_sum += matrix[i][j];
+            col_sum += matrix[i][j]; // same as col_sum = col_sum + matrix[i][j];
         }
         printf("Column %d sum: %d\n", j, col_sum);
     }

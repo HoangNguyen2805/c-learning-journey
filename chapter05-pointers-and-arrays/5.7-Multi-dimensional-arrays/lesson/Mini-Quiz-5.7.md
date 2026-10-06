@@ -6,11 +6,15 @@
 - C) 7
 - D) 12
 
+Answer: D
+
 **Q2:** If you want to pass `int a[3][4]` to a function, which is **NOT** valid?
 - A) `void f(int a[3][4]) { }`
 - B) `void f(int a[][4]) { }`
 - C) `void f(int a[3][]) { }`
 - D) `void f(int (*a)[4]) { }`
+
+Answer: C
 
 **Q3:** In a 2D array declared `char data[5][10]`, elements are stored in _____ order (the rightmost subscript varies fastest).
 - A) column-major
@@ -18,11 +22,15 @@
 - C) random
 - D) backwards
 
+Answer: B
+
 **Q4:** What does `daytab[leap][i]` access in K&R's date example?
 - A) days in month `i` of year `leap`
 - B) the leap year indicator
 - C) days in month `i`, adjusted for leap years by row
 - D) undefined behavior
+
+Answer: C
 
 **Q5:** If a 2D array is initialized like:
 ```c
@@ -34,11 +42,15 @@ what is `a[1][2]`?
 - C) 6
 - D) undefined
 
+Answer: C
+
 **Q6:** When passing a 2D array to a function, which dimension can be omitted?
 - A) The first (rows)
 - B) The second (columns)
 - C) Both
 - D) Neither
+
+Answer: A
 
 **Q7:** What is the size in bytes of `int matrix[5][4]` on a system where `int` is 4 bytes?
 - A) 20
@@ -46,11 +58,15 @@ what is `a[1][2]`?
 - C) 80
 - D) 100
 
+Answer: C
+
 **Q8:** In a 2D array, the formula for accessing element `[i][j]` is:
 - A) base + i + j
 - B) base + (i * cols + j) * sizeof(element)
 - C) base + j * i
 - D) depends on the compiler
+
+Answer: B
 
 **Q9:** Why does `daytab[0][0]` start with 0 (padding) in K&R's example?
 - A) it's a bug
@@ -58,11 +74,15 @@ what is `a[1][2]`?
 - C) to align memory
 - D) no particular reason
 
+Answer: B
+
 **Q10:** If you declare `int a[2][3][4]`, how many dimensions does this array have?
 - A) 2
 - B) 3
 - C) 4
 - D) 9
+
+Answer: B
 
 ---
 
