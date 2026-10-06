@@ -79,6 +79,12 @@ int main()
 
 #include <stdio.h>
 
+#define MAXLINES   5000
+#define MAXLEN     1000
+#define MAXSTORAGE 100000
+
+int my_strlen(char str[]);
+
 int main(){
 
   return 0;
@@ -96,7 +102,7 @@ readlines(lineptr, maxlines, storage, maxstorage):
 
     Variables:
         line[MAXLEN] = scratch space, each line lands here first
-        nlines       = lines stored so far, starts at 0
+        countlines       = lines stored so far, starts at 0
                        (also the index of the next empty slot)
         p            = next free spot in storage, starts at the beginning of storage
 
@@ -112,7 +118,7 @@ readlines(lineptr, maxlines, storage, maxstorage):
                 if there is no \n (often the last line of a file): do nothing
 
         Step 3: CHECK 1 — is there a free slot in lineptr?
-                if nlines >= maxlines:
+                if countlines >= maxlines:
                     return -1   (too many lines)
 
         Step 4: CHECK 2 — is there room left in storage?
@@ -125,11 +131,102 @@ readlines(lineptr, maxlines, storage, maxstorage):
         Step 5: copy the line from line into storage, starting at p
 
         Step 6: record where the line starts
-                lineptr[nlines] = p
-                nlines++
+                lineptr[countlines] = p
+                countlines++
 
         Step 7: move p forward past the line and its \0
                 p = p + len + 1
 
-    return nlines
+    return countlines
 */
+int readlines(char *lineptr[] , int maxlines , char storage[] , int maxstorage){ // readline is an integer function because it return the number of line it read. [ 3 = 3 line ] , [ -1 = too many line ] , [ -2 = not enough storage ]
+    /*parameter , readlines needs four, in this order:
+    readlines needs four, in this order:
+        1. the slots array: type? name?
+        2. how many slots: type? name?
+        3. the big char buffer: type? name?
+        4. its size: type? name?
+    */
+    // We'll use fgets() to collecting the character while it not reach '\0' , notice that fgets() put '\n' infront of '\0'
+    // fgets( where to put the line , how much room there , where to read from)
+    /*
+    Local variables (declare these before the while loop):
+
+    line   = scratch space
+             a char array that holds one line
+             size: MAXLEN
+             fgets puts each line here first
+
+    countlines = line counter
+             an integer
+             starts at 0, because no lines are stored yet
+             also the index of the next empty slot in lineptr
+
+    p      = next free spot in storage
+             a pointer to a char
+             starts at the beginning of storage,
+             because nothing has been stored yet
+    */
+    char line[MAXLEN];
+    int countlines = 0;
+    char *p = storage;
+    while(fgets(line , MAXLEN , stdin) != NULL){
+        // Step 1: measure the line
+        int len = my_strlen(line);
+
+        // Step 2: remove the \n
+        // notice that fgets() put '\n' infront of '\0'. Ex: [ h , e , l , l , o , \n , \0 ] , we need to remove \n by replace \n with \0.
+        if(line[len - 1] == '\n'){
+            line[len - 1] = '\0';
+            len = len + 1;
+        }
+
+        // Step 3: CHECK 1 — is there a free slot in lineptr? CHECK FOR lineptr
+        // check to see if lineptr still have some SLOT to store the string, if countlines is bigger than or Equal to MAXSTORAGE then return -1 , make sure when main receive -1, do something with that -1
+        if(countlines >= maxlines){
+            // why bigger AND EQUAL TO ? Because slot is number from 0, so if we have maxlines = 3 mean slot[0] , slot[1] , slot[2] 
+            //                                        and countline is 0	lineptr[0]  Exist
+            //                                                         1	lineptr[1]  Exist
+            //                                                         2	lineptr[2]  Exist
+            //                                                         3	lineptr[3]  Not Exist , why > ? countlines never actually goes past maxlines so == would work
+            return -1;
+        }
+
+        // Step 4: CHECK 2 — is there room left in storage? CHECK FOR MAXSTORAGE
+        // check to see if MAXSTORAGE still have some SPACE to store the string, does this line fit in storage ?
+        // RULE: if the bytes needed are bigger than the bytes left , it doesn't fit , so return -2.
+        // len + 1                    = the size of the string 
+        // p                          = next free spot in storage
+        // p - storage                = bytes already used
+        // maxstorage - (p - storage) = bytes left
+        // so if len + 1 is biggert than maxstorage - (p - storage), return -2, when main receive -2, make sure main do somehting with -2
+        if((len + 1) > (maxstorage - (p - storage))){
+            return -2;
+        }
+
+        // Step 5: copy the line from line into storage, starting at p
+        // After measure the line and remove \n and check and verified that the line is fit in the storage, now we copy the line into storage using my_strcmp
+    }
+}
+
+/*
+my_strlen(str):
+    receives: str, a pointer to the start of a string
+    returns:  the number of characters (an int), not counting \0
+
+    declare a counter, start at 0
+
+    loop while the character at str is not the null terminator \0:
+        add 1 to the counter
+        move str to the next character
+
+    return the counter
+*/
+int my_strlen(char str[]){
+    int count = 0;
+    while(*str != '\0'){
+        str ++;
+        count ++;
+    }
+    return count;
+}
