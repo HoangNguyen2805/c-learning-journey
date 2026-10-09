@@ -28,7 +28,7 @@ and `month_name` returns `name[3]`, what is `p` pointing to?
 
 **Q4:** The `static` keyword in `static char *name[]` ensures:
 - A) the array is read-only
-- B) the array is only accessible within this function
+- B) the array is created again on every call
 - C) the array is initialized only once
 - D) the array cannot be modified
 
@@ -68,6 +68,18 @@ and `month_name` returns `name[3]`, what is `p` pointing to?
 - C) `month_name` modifies its internal array
 - D) `month_name` allocates new memory each time
 
+**Q11 (bonus):** Given `static char *name[] = {"January", "February"};`, which line is undefined behavior?
+- A) `name[0] = "Jan";`
+- B) `name[0][0] = 'j';`
+- C) `char *p = name[1];`
+- D) `printf("%c", name[1][0]);`
+
+**Q12 (bonus):** Inside `void show(char *tab[])`, why is `sizeof(tab) / sizeof(tab[0])` wrong for counting entries?
+- A) `sizeof` doesn't work on pointers
+- B) `tab` is really a `char **`, so `sizeof(tab)` is the size of one pointer
+- C) it's correct, the compiler remembers the size
+- D) `tab[0]` is a `char`, not a pointer
+
 ---
 
 ## Answer Key (For Self-Check)
@@ -82,3 +94,5 @@ and `month_name` returns `name[3]`, what is `p` pointing to?
 8. **C** (returns "Illegal month")
 9. **A** (96 bytes for pointers only; strings are elsewhere)
 10. **A** (month_name(6) returns "June")
+11. **B** (writes into a read-only string literal)
+12. **B** (the array decayed to `char **` when passed)

@@ -19,8 +19,8 @@ int main()
 
     /* Example 2: Day of week lookup */
     printf("Example 2: day_name lookup\n");
-    for (int i = 0; i < 7; i++) {
-        printf("day_name(%d) = %s\n", i, day_name(i));
+    for (int i = -1; i <= 7; i++) {
+        printf("day_name(%2d) = %s\n", i, day_name(i));
     }
     printf("\n");
 
@@ -124,7 +124,9 @@ char *day_name(int n)
         "Sunday", "Monday", "Tuesday", "Wednesday",
         "Thursday", "Friday", "Saturday"
     };
-    return (n < 0 || n > 6) ? name[0] : name[n];
+    /* No "Illegal" slot at name[0] here (Sunday is day 0),
+       so return a separate literal for bad input */
+    return (n < 0 || n > 6) ? "Illegal day" : name[n];
 }
 
 /* error_message: return error message for code */
