@@ -10,11 +10,15 @@ What is the type of `name[1]`?
 - C) `char **`
 - D) `int`
 
+Answer: B
+
 **Q2:** How does the compiler determine the size of `static char *names[] = {...}`?
 - A) from the first initializer
 - B) by counting initializers in braces
 - C) it cannot; you must specify size
 - D) it's always 255
+
+Answer: B
 
 **Q3:** When you write:
 ```c
@@ -26,11 +30,15 @@ and `month_name` returns `name[3]`, what is `p` pointing to?
 - C) the address of `name[3]` itself
 - D) garbage
 
+Answer: A
+
 **Q4:** The `static` keyword in `static char *name[]` ensures:
 - A) the array is read-only
 - B) the array is created again on every call
 - C) the array is initialized only once
 - D) the array cannot be modified
+
+Answer: C
 
 **Q5:** What is the main advantage of using `char *name[]` over `char name[][15]`?
 - A) faster access
@@ -38,11 +46,15 @@ and `month_name` returns `name[3]`, what is `p` pointing to?
 - C) saves memory (no wasted space)
 - D) more type-safe
 
+Answer: C
+
 **Q6:** In the declaration `static char *name[] = {"January", "February", ...};`, where are the actual strings stored?
 - A) in the `name` array
 - B) in read-only memory (string literal pool)
 - C) on the stack
 - D) in a separate malloc'd block
+
+Answer: A, no its B
 
 **Q7:** What is `*name[0]` (dereference of first element)?
 - A) the first element of the array
@@ -50,11 +62,15 @@ and `month_name` returns `name[3]`, what is `p` pointing to?
 - C) the entire first string
 - D) undefined
 
+Answer: A, no it's B
+
 **Q8:** If `month_name(13)` is called and 13 is invalid, the function should:
 - A) crash
 - B) return NULL
 - C) return `name[0]` ("Illegal month")
 - D) undefined behavior is OK
+
+Answer: B, it's C
 
 **Q9:** How much memory does `static char *months[12]` allocate (assuming 8-byte pointers)?
 - A) 96 bytes (12 × 8 bytes for pointers)
@@ -62,11 +78,15 @@ and `month_name` returns `name[3]`, what is `p` pointing to?
 - C) unknown without knowing the strings
 - D) 12 × 255 bytes
 
+Answer: A
+
 **Q10:** Which is a correct use of `month_name`?
 - A) `month_name(6)` returns a string starting with 'J'
 - B) `month_name(0)` returns an error
 - C) `month_name` modifies its internal array
 - D) `month_name` allocates new memory each time
+
+Answer: A
 
 **Q11 (bonus):** Given `static char *name[] = {"January", "February"};`, which line is undefined behavior?
 - A) `name[0] = "Jan";`
@@ -74,11 +94,15 @@ and `month_name` returns `name[3]`, what is `p` pointing to?
 - C) `char *p = name[1];`
 - D) `printf("%c", name[1][0]);`
 
+ Answer: D, no it's B
+
 **Q12 (bonus):** Inside `void show(char *tab[])`, why is `sizeof(tab) / sizeof(tab[0])` wrong for counting entries?
 - A) `sizeof` doesn't work on pointers
 - B) `tab` is really a `char **`, so `sizeof(tab)` is the size of one pointer
 - C) it's correct, the compiler remembers the size
 - D) `tab[0]` is a `char`, not a pointer
+
+Answer: B
 
 ---
 
